@@ -35,13 +35,18 @@ const About: React.FC = () => {
               </p>
               
               {/* Co-proprietor remark */}
-              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center justify-between">
+              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center gap-6">
+                <img 
+                  src="/images/mr_salaman.jpg" 
+                  alt="Mr. Olukayode Salaman" 
+                  className="w-16 h-16 rounded-full object-cover shadow-md border-2 border-brand-gold"
+                />
                 <div>
                   <h4 className="font-serif font-bold text-brand-dark text-lg">Mr. Olukayode Salaman</h4>
-                  <p className="text-sm text-brand-gold uppercase tracking-wider font-medium">Co-Proprietor</p>
-                </div>
-                <div className="text-sm text-gray-500 italic max-w-xs text-right">
-                  "Ensuring standard, discipline, and absolute academic excellence."
+                  <p className="text-sm text-brand-gold uppercase tracking-wider font-medium">Co-Proprietor & External Exams Coordinator</p>
+                  <p className="text-sm text-gray-500 italic mt-1">
+                    "Ensuring standard, discipline, and seamless external examination registrations."
+                  </p>
                 </div>
               </div>
             </div>
@@ -52,10 +57,13 @@ const About: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-20 items-start">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-8 text-brand-dark">
-              Our Academic <span className="italic font-light text-brand-gold">Philosophy.</span>
+              Our Core <span className="italic font-light text-brand-gold">Values.</span>
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
-              Our approach is targeted. Because we are a dedicated lesson centre, our tutors focus entirely on bridging knowledge gaps and preparing students for competitive examinations without the distractions of a full-time school day.
+              Our approach is targeted and holistic. Because we are a dedicated lesson centre, our tutors focus entirely on bridging knowledge gaps and preparing students for competitive examinations. 
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+              Beyond academics, Peculiar Treasure Academy is rooted in strong <strong>Christian values</strong>. We believe in nurturing the spirit alongside the mind. Every Friday at 3:00 PM, we hold a special fellowship session for our students to build moral character and faith.
             </p>
           </div>
 

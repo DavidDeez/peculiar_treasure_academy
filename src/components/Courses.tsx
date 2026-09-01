@@ -6,19 +6,19 @@ const courses = [
     id: '01',
     title: 'Core Subjects',
     subtitle: 'English & Mathematics',
-    description: 'The foundation of all academic success. We provide intensive drilling in English language, essay writing, and mathematical problem-solving to ensure students never struggle with the basics.',
+    description: 'The foundation of all academic success. We provide intensive drilling in English Language and General Mathematics to ensure students never struggle with the basics required for every discipline.',
   },
   {
     id: '02',
     title: 'Science Department',
-    subtitle: 'Physics, Chemistry, Biology',
-    description: 'Practical, theory, and calculation-based tutorials for all major science subjects. We break down complex formulas and scientific principles into easy-to-grasp concepts.',
+    subtitle: 'Physics, Chemistry, Biology, Further Maths',
+    description: 'Practical and calculation-based tutorials. We break down complex formulas into easy-to-grasp concepts for aspiring doctors, engineers, and scientists.',
   },
   {
     id: '03',
     title: 'Arts & Commercial',
-    subtitle: 'Literature, Govt, Economics',
-    description: 'In-depth analysis of literary texts, comprehensive coverage of government structures, and mastery of economic and accounting principles.',
+    subtitle: 'Literature, Govt, Economics, Accounting, Commerce',
+    description: 'In-depth analysis of literary texts, comprehensive coverage of government structures, and mastery of core commercial and accounting principles.',
   },
 ];
 
