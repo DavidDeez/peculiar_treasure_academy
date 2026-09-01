@@ -33,6 +33,17 @@ const About: React.FC = () => {
               <p className="font-serif text-xl text-brand-dark italic mt-8 border-l-4 border-brand-gold pl-6">
                 "Every child is a peculiar treasure. Sometimes, they just need the right polishing to shine."
               </p>
+              
+              {/* Co-proprietor remark */}
+              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center justify-between">
+                <div>
+                  <h4 className="font-serif font-bold text-brand-dark text-lg">Mr. Olukayode Salaman</h4>
+                  <p className="text-sm text-brand-gold uppercase tracking-wider font-medium">Co-Proprietor</p>
+                </div>
+                <div className="text-sm text-gray-500 italic max-w-xs text-right">
+                  "Ensuring standard, discipline, and absolute academic excellence."
+                </div>
+              </div>
             </div>
           </div>
         </div>

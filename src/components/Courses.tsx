@@ -29,12 +29,15 @@ const Courses: React.FC = () => {
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-20">
           <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold mb-4 text-sm font-medium tracking-wide">
+              Aligned with NERDC Curriculum
+            </div>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-white">
               Subjects We <br/><span className="italic font-light text-brand-gold">Teach.</span>
             </h2>
           </div>
           <p className="text-gray-400 max-w-sm text-sm leading-relaxed mb-2">
-            Comprehensive lesson plans covering the entire secondary school curriculum, specifically tailored to help students ace their examinations.
+            Comprehensive lesson plans covering the entire NERDC secondary school curriculum, specifically tailored to help students ace WAEC, NECO, and JAMB.
           </p>
         </div>
 
