@@ -4,7 +4,7 @@ import { Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    text: "Before I came to Peculiar Treasure, Physics was a nightmare. The tutors here broke it down step-by-step. I ended up scoring an A1 in my WAEC and 290 in JAMB!",
+    text: "Before I came to Peculiar Treasure, Physics was a nightmare. The tutors here broke it down step by step. I ended up scoring an A1 in my WAEC and 290 in JAMB!",
     author: "Samuel O.",
     role: "Former Science Student (Now at UI)"
   },

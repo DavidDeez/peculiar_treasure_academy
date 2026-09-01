@@ -22,7 +22,7 @@ const Features: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
             <div className="relative z-20">
               <h3 className="text-2xl font-bold text-white mb-2">Immersive Study Spaces</h3>
-              <p className="text-gray-200 text-sm max-w-md">Quiet, distraction-free environments equipped with the resources needed for deep focus.</p>
+              <p className="text-gray-200 text-sm max-w-md">Quiet environments equipped with the resources needed for deep focus.</p>
             </div>
           </div>
 
@@ -37,7 +37,7 @@ const Features: React.FC = () => {
           <div className="md:col-span-4 bg-brand-gold p-10 rounded-2xl flex flex-col justify-center text-center">
             <h3 className="text-xl font-bold text-brand-dark mb-4">Elite Faculty</h3>
             <p className="text-brand-dark/80 text-sm leading-relaxed">
-              Our educators are hand-picked experts with years of proven pedagogical success.
+              Our educators are carefully selected experts with years of proven pedagogical success.
             </p>
           </div>
 
@@ -46,7 +46,7 @@ const Features: React.FC = () => {
             <img src="/images/mentorship.jpg" alt="Mentorship Session" className="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
             <div className="relative z-20">
-              <h3 className="text-2xl font-bold text-white mb-2">One-on-One Mentorship</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">Personalized Mentorship</h3>
               <p className="text-gray-200 text-sm max-w-md">Beyond teaching, we guide students through career choices, university prep, and personal development.</p>
             </div>
           </div>

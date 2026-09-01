@@ -14,7 +14,7 @@ const About: React.FC = () => {
               className="w-full h-auto aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-dark to-transparent p-8 pt-20">
-              <h3 className="text-white text-2xl font-serif font-bold">Mrs. Salaman</h3>
+              <h3 className="text-white text-2xl font-serif font-bold">Mrs. Yemisi Salaman</h3>
               <p className="text-brand-gold text-sm tracking-widest uppercase font-medium">Proprietor</p>
             </div>
           </div>

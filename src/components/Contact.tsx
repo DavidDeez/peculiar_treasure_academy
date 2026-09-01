@@ -24,9 +24,9 @@ const Contact: React.FC = () => {
               </div>
               <div className="group cursor-pointer">
                 <h4 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-hover:text-brand-gold transition-colors">Direct Line & WhatsApp</h4>
-                <p className="text-brand-dark font-serif text-lg">0708 126 9431</p>
+                <p className="text-brand-dark font-serif text-lg">0816 410 1457</p>
                 <a 
-                  href="https://wa.me/2347081269431" 
+                  href="https://wa.me/2348164101457" 
                   target="_blank" 
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 mt-2 text-sm text-[#25D366] font-medium hover:underline"
@@ -39,20 +39,30 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Google Map */}
-            <div className="w-full h-64 bg-gray-200 rounded-sm overflow-hidden shadow-md group">
+            {/* Google Map Link wrapper */}
+            <a 
+              href="https://maps.app.goo.gl/DDcQXzp6EDwxW8Wo6" 
+              target="_blank" 
+              rel="noreferrer"
+              className="block w-full h-64 bg-gray-200 rounded-sm overflow-hidden shadow-md group relative"
+              title="Click to view exact location on Google Maps"
+            >
+              <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 z-10 transition-colors flex items-center justify-center">
+                <span className="bg-white text-brand-dark px-4 py-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                  Open in Google Maps
+                </span>
+              </div>
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126601.27255106598!2d3.821360098522329!3d7.433246473138834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10398d77ee6ebf8b%3A0xc3f8319696ce22a4!2sOjoo%2C%20Ibadan%2C%20Oyo!5e0!3m2!1sen!2sng!4v1716912345678!5m2!1sen!2sng" 
                 width="100%" 
                 height="100%" 
-                style={{ border: 0 }} 
+                style={{ border: 0, pointerEvents: 'none' }} 
                 allowFullScreen={false} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                title="Google Maps Location of Ojoo, Ibadan"
               ></iframe>
-            </div>
+            </a>
           </div>
 
           {/* Form */}

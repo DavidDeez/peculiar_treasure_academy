@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
             </h1>
             
             <p className="text-lg text-gray-600 mb-10 leading-relaxed max-w-lg">
-              We are not just a school—we are a dedicated lesson centre. We provide focused, intensive tutorials in all Science and Art subjects, ensuring every student masters the curriculum.
+              We are a dedicated lesson centre. We provide focused, intensive tutorials in all Science and Art subjects, ensuring every student masters the curriculum.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5">

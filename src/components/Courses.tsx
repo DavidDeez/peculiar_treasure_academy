@@ -12,13 +12,13 @@ const courses = [
     id: '02',
     title: 'Science Department',
     subtitle: 'Physics, Chemistry, Biology, Further Maths',
-    description: 'Practical and calculation-based tutorials. We break down complex formulas into easy-to-grasp concepts for aspiring doctors, engineers, and scientists.',
+    description: 'Practical and calculation based tutorials. We break down complex formulas into easy to grasp concepts for aspiring doctors, engineers, and scientists.',
   },
   {
     id: '03',
     title: 'Arts & Commercial',
     subtitle: 'Literature, Govt, Economics, Accounting, Commerce',
-    description: 'In-depth analysis of literary texts, comprehensive coverage of government structures, and mastery of core commercial and accounting principles.',
+    description: 'In depth analysis of literary texts, comprehensive coverage of government structures, and mastery of core commercial and accounting principles.',
   },
 ];
 
