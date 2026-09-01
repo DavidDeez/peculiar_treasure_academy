@@ -1,40 +1,39 @@
 import React, { useState } from 'react';
-import { Menu, X, BookOpen } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="fixed w-full z-50 bg-white shadow-md">
+    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-              <BookOpen className="h-8 w-8 text-primary" />
-              <span className="font-bold text-xl text-gray-900 tracking-tight">Peculiar Treasure</span>
-            </div>
+        <div className="flex justify-between items-center h-24">
+          
+          {/* Logo */}
+          <div 
+            className="flex-shrink-0 cursor-pointer" 
+            onClick={() => window.scrollTo(0,0)}
+          >
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-brand-dark m-0">
+              Peculiar Treasure.
+            </h1>
           </div>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="text-gray-700 hover:text-primary transition-colors font-medium">About</a>
-            <a href="#courses" className="text-gray-700 hover:text-primary transition-colors font-medium">Courses</a>
-            <a href="#features" className="text-gray-700 hover:text-primary transition-colors font-medium">Why Us</a>
-            <a href="#contact" className="bg-primary text-white px-5 py-2 rounded-md hover:bg-blue-800 transition-colors font-medium">
-              Contact Us
+          <div className="hidden md:flex items-center space-x-10">
+            <a href="#about" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">Philosophy</a>
+            <a href="#courses" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">Academics</a>
+            <a href="#features" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">The Experience</a>
+            <a href="#contact" className="bg-brand-dark text-white px-6 py-2.5 text-sm uppercase tracking-wider font-medium hover:bg-gray-800 transition-colors">
+              Admissions
             </a>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
-            <button
-              onClick={toggleMenu}
-              className="text-gray-700 hover:text-primary focus:outline-none"
-            >
+          <div className="md:hidden">
+            <button onClick={toggleMenu} className="text-brand-dark p-2">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
@@ -43,12 +42,12 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#about" onClick={toggleMenu} className="block px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md font-medium">About</a>
-            <a href="#courses" onClick={toggleMenu} className="block px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md font-medium">Courses</a>
-            <a href="#features" onClick={toggleMenu} className="block px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md font-medium">Why Us</a>
-            <a href="#contact" onClick={toggleMenu} className="block px-3 py-2 text-primary font-bold hover:bg-gray-50 rounded-md">Contact Us</a>
+        <div className="md:hidden bg-white border-t border-gray-100 absolute w-full pb-6 shadow-xl">
+          <div className="px-6 pt-4 space-y-4">
+            <a href="#about" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">Philosophy</a>
+            <a href="#courses" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">Academics</a>
+            <a href="#features" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">The Experience</a>
+            <a href="#contact" onClick={toggleMenu} className="block text-brand-gold text-lg font-serif italic">Admissions</a>
           </div>
         </div>
       )}

@@ -1,97 +1,74 @@
 import React from 'react';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
-    <section id="contact" className="py-20 bg-gray-50">
+    <section id="contact" className="py-32 bg-[#faf9f6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Get in Touch</h2>
-          <div className="mt-2 h-1 w-20 bg-primary mx-auto rounded"></div>
-          <p className="mt-6 text-lg text-gray-600">
-            Have questions about our programs or enrollment? We'd love to hear from you.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        
+        <div className="grid lg:grid-cols-2 gap-20">
           
-          {/* Contact Info */}
+          {/* Info */}
           <div>
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-900">Our Address</h4>
-                    <p className="mt-1 text-gray-600">123 Education Way, Learning District<br />City, State, Country</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-900">Phone</h4>
-                    <p className="mt-1 text-gray-600">+1 (234) 567-8900<br />+1 (234) 567-8901</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-gray-900">Email</h4>
-                    <p className="mt-1 text-gray-600">info@peculiartreasure.edu<br />admissions@peculiartreasure.edu</p>
-                  </div>
-                </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-8">
+              Take the <span className="italic font-light text-brand-gold">first step.</span>
+            </h2>
+            <p className="text-lg text-gray-600 leading-relaxed mb-12">
+              We welcome inquiries from prospective students and parents. Reach out to schedule a consultation, tour our facilities, or discuss enrollment.
+            </p>
+            
+            <div className="space-y-8">
+              <div>
+                <h4 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Location</h4>
+                <p className="text-brand-dark font-serif text-lg">123 Education Boulevard<br />Academic District, City</p>
+              </div>
+              <div>
+                <h4 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Direct Line</h4>
+                <p className="text-brand-dark font-serif text-lg">+1 (234) 567-8900</p>
+              </div>
+              <div>
+                <h4 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Email Inquiries</h4>
+                <p className="text-brand-dark font-serif text-lg">admissions@peculiartreasure.edu</p>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-white rounded-2xl p-8 shadow-md border border-gray-100">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
+          {/* Form */}
+          <div className="bg-white p-10 shadow-2xl rounded-tr-[80px]">
+            <h3 className="font-serif text-2xl font-bold mb-8 text-brand-dark">Send an Inquiry</h3>
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Full Name</label>
                 <input
                   type="text"
-                  id="name"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-gray-50 border p-3"
-                  placeholder="John Doe"
+                  className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
+                  placeholder="Enter your name"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Email Address</label>
                 <input
                   type="email"
-                  id="email"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-gray-50 border p-3"
-                  placeholder="john@example.com"
+                  className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
+                  placeholder="Enter your email"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">Your Message</label>
                 <textarea
-                  id="message"
-                  rows={4}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary bg-gray-50 border p-3"
-                  placeholder="How can we help you?"
+                  rows={3}
+                  className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark resize-none"
+                  placeholder="How can we assist you?"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+                className="w-full bg-brand-dark text-white px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-gray-800 transition-colors flex justify-center items-center gap-2 mt-8"
               >
-                Send Message
+                Submit Inquiry <ArrowRight className="h-4 w-4" />
               </button>
             </form>
           </div>

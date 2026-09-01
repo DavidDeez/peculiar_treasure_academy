@@ -1,68 +1,68 @@
 import React from 'react';
-import { Users, Clock, Lightbulb, CheckCircle2 } from 'lucide-react';
-
-const features = [
-  {
-    name: 'Experienced Tutors',
-    description: 'Our teachers are highly qualified professionals passionate about student success.',
-    icon: <Users className="h-6 w-6" />,
-  },
-  {
-    name: 'Conducive Environment',
-    description: 'We provide a safe, quiet, and well-equipped space designed for optimal learning.',
-    icon: <Lightbulb className="h-6 w-6" />,
-  },
-  {
-    name: 'Flexible Timing',
-    description: 'Classes are scheduled at convenient times to accommodate regular school hours.',
-    icon: <Clock className="h-6 w-6" />,
-  },
-  {
-    name: 'Proven Results',
-    description: 'A strong track record of students dramatically improving their grades and passing major exams.',
-    icon: <CheckCircle2 className="h-6 w-6" />,
-  },
-];
 
 const Features: React.FC = () => {
   return (
-    <section id="features" className="py-20 bg-white">
+    <section id="features" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+        
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+            The <span className="italic font-light text-brand-gold">Peculiar</span> Experience
+          </h2>
+          <p className="text-lg text-gray-600 leading-relaxed">
+            An environment meticulously crafted for academic immersion and personal growth.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[250px]">
           
-          <div className="mb-12 lg:mb-0">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-6">Why Choose Peculiar Treasure?</h2>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              We go beyond standard teaching. We mentor, guide, and inspire our students to be the best versions of themselves. Here is what sets us apart from the rest.
-            </p>
-            <div className="relative rounded-2xl overflow-hidden shadow-lg aspect-video bg-gray-200 border-4 border-white flex items-center justify-center">
-              {/* INSTRUCTION: Replace this with a real image */}
-              <div className="text-center p-6">
-                <div className="text-gray-400 mb-2">📸 Image Placeholder</div>
-                <p className="text-sm text-gray-500">Insert classroom/teaching image here</p>
-              </div>
+          {/* Box 1 */}
+          <div className="md:col-span-8 bg-[#faf9f6] p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gray-200 z-0">
+               {/* Image Placeholder */}
+               <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                 <span className="font-serif text-lg">📸 Library / Study Hall</span>
+               </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+            <div className="relative z-20">
+              <h3 className="text-2xl font-bold text-white mb-2">Immersive Study Spaces</h3>
+              <p className="text-gray-200 text-sm max-w-md">Quiet, distraction-free environments equipped with the resources needed for deep focus.</p>
             </div>
           </div>
 
-          <div>
-            <dl className="space-y-10">
-              {features.map((feature) => (
-                <div key={feature.name} className="relative pl-16">
-                  <dt className="text-xl font-bold text-gray-900 mb-2">
-                    <div className="absolute left-0 top-0 flex items-center justify-center h-12 w-12 rounded-xl bg-blue-50 text-primary border border-blue-100">
-                      {feature.icon}
-                    </div>
-                    {feature.name}
-                  </dt>
-                  <dd className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+          {/* Box 2 */}
+          <div className="md:col-span-4 bg-brand-dark p-10 rounded-2xl flex flex-col justify-center text-center">
+            <div className="text-brand-gold text-5xl font-serif font-bold mb-4">98%</div>
+            <h3 className="text-xl font-bold text-white mb-2">Exam Success Rate</h3>
+            <p className="text-gray-400 text-sm">Consistent excellence across all major boards.</p>
           </div>
-          
+
+          {/* Box 3 */}
+          <div className="md:col-span-4 bg-brand-gold p-10 rounded-2xl flex flex-col justify-center text-center">
+            <h3 className="text-xl font-bold text-brand-dark mb-4">Elite Faculty</h3>
+            <p className="text-brand-dark/80 text-sm leading-relaxed">
+              Our educators are hand-picked experts with years of proven pedagogical success.
+            </p>
+          </div>
+
+          {/* Box 4 */}
+          <div className="md:col-span-8 bg-[#faf9f6] p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden">
+            <div className="absolute inset-0 bg-gray-200 z-0">
+               {/* Image Placeholder */}
+               <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                 <span className="font-serif text-lg">📸 Mentorship Session</span>
+               </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+            <div className="relative z-20">
+              <h3 className="text-2xl font-bold text-white mb-2">One-on-One Mentorship</h3>
+              <p className="text-gray-200 text-sm max-w-md">Beyond teaching, we guide students through career choices, university prep, and personal development.</p>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
   );
