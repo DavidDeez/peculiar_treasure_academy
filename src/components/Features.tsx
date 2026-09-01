@@ -18,12 +18,7 @@ const Features: React.FC = () => {
           
           {/* Box 1 */}
           <div className="md:col-span-8 bg-[#faf9f6] p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gray-200 z-0">
-               {/* Image Placeholder */}
-               <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
-                 <span className="font-serif text-lg">📸 Library / Study Hall</span>
-               </div>
-            </div>
+            <img src="/images/study_hall.jpg" alt="Study Hall" className="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
             <div className="relative z-20">
               <h3 className="text-2xl font-bold text-white mb-2">Immersive Study Spaces</h3>
@@ -47,13 +42,8 @@ const Features: React.FC = () => {
           </div>
 
           {/* Box 4 */}
-          <div className="md:col-span-8 bg-[#faf9f6] p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden">
-            <div className="absolute inset-0 bg-gray-200 z-0">
-               {/* Image Placeholder */}
-               <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
-                 <span className="font-serif text-lg">📸 Mentorship Session</span>
-               </div>
-            </div>
+          <div className="md:col-span-8 bg-[#faf9f6] p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group">
+            <img src="/images/mentorship.jpg" alt="Mentorship Session" className="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
             <div className="relative z-20">
               <h3 className="text-2xl font-bold text-white mb-2">One-on-One Mentorship</h3>
