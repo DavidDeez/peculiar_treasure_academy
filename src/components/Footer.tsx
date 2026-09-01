@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Facebook, Twitter, Instagram } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -15,18 +15,15 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 max-w-sm mb-6">
               Empowering the next generation through quality education, dedicated mentorship, and a commitment to excellence.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">Facebook</span>
-                <Facebook className="h-6 w-6" />
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors font-medium">
+                Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">Instagram</span>
-                <Instagram className="h-6 w-6" />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors font-medium">
+                Instagram
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">Twitter</span>
-                <Twitter className="h-6 w-6" />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors font-medium">
+                Twitter
               </a>
             </div>
           </div>
