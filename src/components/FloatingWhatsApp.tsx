@@ -10,7 +10,7 @@ const FloatingWhatsApp: React.FC = () => {
       href={whatsappUrl}
       target="_blank"
       rel="noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-2xl hover:bg-[#20ba59] hover:scale-110 transition-all duration-300 animate-bounce group"
+      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-gradient-to-br from-gray-700 to-gray-900 text-white rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.3),inset_0_2px_2px_rgba(255,255,255,0.2)] border border-gray-800 hover:from-gray-600 hover:to-gray-800 hover:scale-110 transition-all duration-300 animate-bounce group"
       aria-label="Chat with us on WhatsApp"
     >
       <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
