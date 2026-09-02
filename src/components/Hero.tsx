@@ -18,8 +18,8 @@ const Hero: React.FC = () => {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-8 text-brand-dark">
-              Ibadan's Premier <br className="hidden md:block" />
-              <span className="italic font-light text-brand-gold">Lesson Centre.</span>
+              Dedicated Tutorials for <br className="hidden md:block" />
+              <span className="italic font-light text-brand-gold">Exceptional Grades.</span>
             </h1>
             
             <p className="text-lg text-gray-600 mb-10 leading-relaxed max-w-lg">

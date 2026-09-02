@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
             onClick={() => window.scrollTo(0,0)}
           >
             <h1 className="font-serif text-2xl font-bold tracking-tight text-brand-dark m-0">
-              Peculiar Treasure.
+              Peculiar Treasure <span className="uppercase text-brand-gold text-lg tracking-widest">ACADEMY.</span>
             </h1>
           </div>
           
