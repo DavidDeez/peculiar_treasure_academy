@@ -51,6 +51,34 @@ const Features: React.FC = () => {
             </div>
           </div>
 
+          {/* Box 5: Schedule */}
+          <div className="md:col-span-5 bg-brand-dark p-8 md:p-10 rounded-2xl flex flex-col justify-center">
+            <h3 className="text-xl font-bold text-brand-gold mb-6 border-b border-gray-800 pb-4">Our Schedule</h3>
+            <ul className="space-y-4">
+              <li className="flex justify-between items-center text-sm">
+                <span className="text-gray-400 uppercase tracking-widest font-bold">Mon - Thu</span>
+                <span className="text-white font-serif">9:00 AM - 1:00 PM</span>
+              </li>
+              <li className="flex justify-between items-center text-sm">
+                <span className="text-gray-400 uppercase tracking-widest font-bold">Fridays</span>
+                <span className="text-white font-serif">3:00 PM - 6:00 PM</span>
+              </li>
+              <li className="flex justify-between items-center text-sm">
+                <span className="text-gray-400 uppercase tracking-widest font-bold">Saturdays</span>
+                <span className="text-white font-serif">9:00 AM - 1:00 PM</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Box 6: Home Lessons */}
+          <div className="md:col-span-7 bg-brand-gold/10 border border-brand-gold/20 p-8 md:p-10 rounded-2xl flex flex-col justify-center">
+            <h3 className="text-2xl font-bold text-brand-dark mb-4">Premium Home Lessons</h3>
+            <p className="text-brand-dark/80 text-sm leading-relaxed mb-6">
+              Prefer to learn from home? We deploy our top tutors directly to your residence. They stay for the full designated period, ensuring zero distractions and maximum concentration for the student.
+            </p>
+            <a href="#contact" className="inline-block text-sm font-bold uppercase tracking-widest text-brand-gold hover:text-brand-dark transition-colors">Request a Home Tutor &rarr;</a>
+          </div>
+
         </div>
 
       </div>

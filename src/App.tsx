@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Countdown from './components/Countdown';
 import About from './components/About';
 import Courses from './components/Courses';
 import Features from './components/Features';
@@ -15,6 +16,7 @@ function App() {
       <Navbar />
       <main className="flex-grow">
         <Hero />
+        <Countdown />
         <About />
         <Courses />
         <Features />
