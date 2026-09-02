@@ -40,14 +40,14 @@ const Hero: React.FC = () => {
           {/* Image Layout */}
           <div className="relative group perspective-1000">
             <img 
-              src="/images/hero_main.jpg" 
+              src="/images/hero_main.webp" 
               alt="Students studying in library" 
               className="aspect-[4/5] object-cover shadow-2xl relative z-10 rounded-sm transition-transform duration-700 group-hover:scale-[1.02]" 
             />
             
             {/* Offset decorative image */}
             <img 
-              src="/images/hero_accent.jpg" 
+              src="/images/hero_accent.webp" 
               alt="Academic books and pen" 
               className="hidden md:block absolute -bottom-12 -left-12 aspect-square w-64 object-cover border-8 border-[#faf9f6] shadow-2xl z-20 rounded-sm transition-transform duration-700 group-hover:-translate-y-4 group-hover:-translate-x-4" 
             />

@@ -9,7 +9,7 @@ const About: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
           <div className="relative group overflow-hidden rounded-sm shadow-xl">
             <img 
-              src="/images/mrs_salaman.jpg" 
+              src="/images/mrs_salaman.webp" 
               alt="Mrs. Salaman, Proprietor" 
               className="w-full h-auto aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -37,7 +37,7 @@ const About: React.FC = () => {
               {/* Co-proprietor remark */}
               <div className="mt-8 pt-8 border-t border-gray-100 flex items-center gap-6">
                 <img 
-                  src="/images/mr_salaman.jpg" 
+                  src="/images/mr_salaman.webp" 
                   alt="Mr. Olukayode Salaman" 
                   className="w-16 h-16 rounded-full object-cover shadow-md border-2 border-brand-gold"
                 />
