@@ -41,21 +41,21 @@ const Courses: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-l border-gray-800">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-gray-800 md:border-l">
           {courses.map((course) => (
-            <div key={course.id} className="p-10 border-r border-b border-gray-800 group hover:bg-gray-800/80 transition-all duration-300 relative overflow-hidden">
+            <div key={course.id} className="p-6 md:p-10 border-b border-gray-800 md:border-r group hover:bg-gray-800/80 transition-all duration-300 relative overflow-hidden">
               {/* Subtle hover background effect */}
               <div className="absolute inset-0 bg-brand-gold/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0"></div>
               
               <div className="relative z-10">
-                <span className="text-brand-gold font-serif text-xl block mb-8 transition-transform duration-300 group-hover:-translate-y-2">{course.id}</span>
-                <h3 className="text-2xl font-bold mb-2 text-white">{course.title}</h3>
-                <h4 className="text-sm uppercase tracking-wider text-gray-400 mb-6">{course.subtitle}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                <span className="text-brand-gold font-serif text-lg md:text-xl block mb-4 md:mb-8 transition-transform duration-300 group-hover:-translate-y-2">{course.id}</span>
+                <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2 text-white">{course.title}</h3>
+                <h4 className="text-[10px] md:text-sm uppercase tracking-wider text-gray-400 mb-3 md:mb-6">{course.subtitle}</h4>
+                <p className="text-gray-400 text-sm leading-relaxed mb-4 md:mb-8">
                   {course.description}
                 </p>
                 
-                <a href="#contact" className="inline-flex items-center gap-2 text-sm uppercase tracking-wider font-medium text-white group-hover:text-brand-gold transition-colors">
+                <a href="#contact" className="hidden md:inline-flex items-center gap-2 text-sm uppercase tracking-wider font-medium text-white group-hover:text-brand-gold transition-colors">
                   Enroll Now <ArrowUpRight className="h-4 w-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </a>
               </div>
