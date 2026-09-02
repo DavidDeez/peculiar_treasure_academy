@@ -37,21 +37,23 @@ const Testimonials: React.FC = () => {
           <p className="text-gray-400 text-sm">Real stories from students who passed through our intensive programs.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-white/5 border border-white/10 p-8 rounded-lg backdrop-blur-sm relative group hover:bg-white/10 transition-colors duration-300">
-              <Quote className="text-brand-gold/30 h-12 w-12 absolute top-6 right-6 z-0 transform group-hover:scale-110 transition-transform" />
-              <div className="relative z-10">
-                <p className="text-gray-300 italic mb-8 leading-relaxed text-sm">
-                  "{testimonial.text}"
-                </p>
-                <div>
-                  <h4 className="text-white font-bold font-serif">{testimonial.author}</h4>
-                  <p className="text-brand-gold text-xs uppercase tracking-wider mt-1">{testimonial.role}</p>
+        <div className="relative overflow-hidden w-full group">
+          <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+            {[...testimonials, ...testimonials].map((testimonial, idx) => (
+              <div key={idx} className="w-[320px] md:w-[400px] shrink-0 mx-4 bg-white/5 border border-white/10 p-8 rounded-lg backdrop-blur-sm relative hover:bg-white/10 transition-colors duration-300">
+                <Quote className="text-brand-gold/30 h-12 w-12 absolute top-6 right-6 z-0" />
+                <div className="relative z-10">
+                  <p className="text-gray-300 italic mb-8 leading-relaxed text-sm whitespace-normal">
+                    "{testimonial.text}"
+                  </p>
+                  <div>
+                    <h4 className="text-white font-bold font-serif">{testimonial.author}</h4>
+                    <p className="text-brand-gold text-xs uppercase tracking-wider mt-1">{testimonial.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
