@@ -7,8 +7,8 @@ img = Image.open(image_path)
 img = img.convert("RGBA")
 datas = img.getdata()
 
-# WhatsApp Green is roughly (37, 211, 102) -> #25D366
-target_color = (37, 211, 102)
+# A much more vibrant, brighter green
+target_color = (0, 220, 80)
 
 new_data = []
 for item in datas:

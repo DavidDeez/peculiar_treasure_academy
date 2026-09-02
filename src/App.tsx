@@ -4,6 +4,7 @@ import About from './components/About';
 import Courses from './components/Courses';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
+import HallOfFame from './components/HallOfFame';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
@@ -17,6 +18,7 @@ function App() {
         <About />
         <Courses />
         <Features />
+        <HallOfFame />
         <Testimonials />
         <Contact />
       </main>
