@@ -16,8 +16,9 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 cursor-pointer" 
             onClick={() => window.scrollTo(0,0)}
           >
-            <h1 className="font-serif text-2xl font-bold tracking-tight text-brand-dark m-0">
-              Peculiar Treasure <span className="uppercase text-brand-gold text-lg tracking-widest">ACADEMY.</span>
+            <h1 className="font-serif text-xl md:text-2xl font-bold tracking-tight text-brand-dark m-0 leading-tight md:leading-normal">
+              Peculiar Treasure <br className="block md:hidden" />
+              <span className="uppercase text-brand-gold text-xs md:text-lg tracking-widest block md:inline">ACADEMY.</span>
             </h1>
           </div>
           
