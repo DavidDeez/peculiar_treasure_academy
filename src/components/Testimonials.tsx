@@ -1,5 +1,7 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const testimonials = [
   {
@@ -23,6 +25,11 @@ const testimonials = [
 ];
 
 const Testimonials: React.FC = () => {
+  const [emblaRef] = useEmblaCarousel(
+    { loop: true, align: 'start' },
+    [Autoplay({ delay: 4000, stopOnInteraction: true })]
+  );
+
   return (
     <section className="py-24 bg-brand-dark relative overflow-hidden">
       {/* Background Accent */}
@@ -37,18 +44,20 @@ const Testimonials: React.FC = () => {
           <p className="text-gray-400 text-sm">Real stories from students who passed through our intensive programs.</p>
         </div>
 
-        <div className="relative overflow-hidden w-full group">
-          <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
-            {[...testimonials, ...testimonials].map((testimonial, idx) => (
-              <div key={idx} className="w-[320px] md:w-[400px] shrink-0 mx-4 bg-white/5 border border-white/10 p-8 rounded-lg backdrop-blur-sm relative hover:bg-white/10 transition-colors duration-300">
-                <Quote className="text-brand-gold/30 h-12 w-12 absolute top-6 right-6 z-0" />
-                <div className="relative z-10">
-                  <p className="text-gray-300 italic mb-8 leading-relaxed text-sm whitespace-normal">
-                    "{testimonial.text}"
-                  </p>
-                  <div>
-                    <h4 className="text-white font-bold font-serif">{testimonial.author}</h4>
-                    <p className="text-brand-gold text-xs uppercase tracking-wider mt-1">{testimonial.role}</p>
+        <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
+          <div className="flex -ml-8">
+            {testimonials.map((testimonial, idx) => (
+              <div key={idx} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-8">
+                <div className="bg-white/5 border border-white/10 p-8 rounded-lg backdrop-blur-sm relative hover:bg-white/10 transition-colors duration-300 h-full">
+                  <Quote className="text-brand-gold/30 h-12 w-12 absolute top-6 right-6 z-0" />
+                  <div className="relative z-10 h-full flex flex-col justify-between">
+                    <p className="text-gray-300 italic mb-8 leading-relaxed text-sm whitespace-normal">
+                      "{testimonial.text}"
+                    </p>
+                    <div>
+                      <h4 className="text-white font-bold font-serif">{testimonial.author}</h4>
+                      <p className="text-brand-gold text-xs uppercase tracking-wider mt-1">{testimonial.role}</p>
+                    </div>
                   </div>
                 </div>
               </div>
