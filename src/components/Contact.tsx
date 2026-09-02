@@ -25,6 +25,7 @@ const Contact: React.FC = () => {
               <div className="group cursor-pointer">
                 <h4 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-hover:text-brand-gold transition-colors">Direct Line & WhatsApp</h4>
                 <p className="text-brand-dark font-serif text-lg">0816 410 1457</p>
+                <p className="text-brand-dark font-serif text-lg">0808 830 6825</p>
                 <a 
                   href="https://wa.me/2348164101457" 
                   target="_blank" 
