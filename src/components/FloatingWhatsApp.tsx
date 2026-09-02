@@ -16,7 +16,7 @@ const FloatingWhatsApp: React.FC = () => {
       <img 
         src="/images/whatsapp_3d.png" 
         alt="WhatsApp" 
-        className="w-16 h-16 object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.2)]"
+        className="w-11 h-11 object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.2)]"
       />
       {/* Tooltip */}
       <span className="absolute right-16 bg-white text-brand-dark px-4 py-2 rounded shadow-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block">
