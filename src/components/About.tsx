@@ -35,16 +35,16 @@ const About: React.FC = () => {
               </p>
               
               {/* Co-proprietor remark */}
-              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center gap-6">
+              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center md:items-start gap-6">
                 <img 
                   src="/images/mr_salaman.webp" 
                   alt="Mr. Olukayode Salaman" 
-                  className="w-16 h-16 rounded-full object-cover shadow-md border-2 border-brand-gold"
+                  className="w-24 h-32 md:w-28 md:h-36 rounded-md object-cover shadow-md border-2 border-brand-gold shrink-0"
                 />
-                <div>
-                  <h4 className="font-serif font-bold text-brand-dark text-lg">Mr. Olukayode Salaman</h4>
-                  <p className="text-sm text-brand-gold uppercase tracking-wider font-medium">Co-Proprietor & External Exams Coordinator</p>
-                  <p className="text-sm text-gray-500 italic mt-1">
+                <div className="mt-2">
+                  <h4 className="font-serif font-bold text-brand-dark text-lg md:text-xl">Mr. Olukayode Salaman</h4>
+                  <p className="text-sm text-brand-gold uppercase tracking-wider font-bold mb-2">Co-Proprietor</p>
+                  <p className="text-sm text-gray-500 italic">
                     "Ensuring standard, discipline, and seamless external examination registrations."
                   </p>
                 </div>
