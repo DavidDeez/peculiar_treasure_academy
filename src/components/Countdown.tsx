@@ -34,8 +34,8 @@ const Countdown: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-brand-gold text-brand-dark py-4 px-4 sm:px-6 relative overflow-hidden flex justify-center items-center shadow-md z-40">
-      <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 max-w-7xl mx-auto">
+    <div className="bg-brand-gold text-brand-dark py-4 px-4 sm:px-6 relative overflow-hidden flex flex-col justify-center items-center shadow-md z-40">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-sm md:text-base">
           <Timer className="w-5 h-5 animate-pulse" />
           <span>WAEC GCE EXAMS BEGIN IN:</span>
@@ -62,6 +62,13 @@ const Countdown: React.FC = () => {
             <span className="text-[10px] uppercase tracking-widest font-sans font-bold mt-1">Sec</span>
           </div>
         </div>
+      </div>
+      
+      {/* Tiny upcoming exams list underneath */}
+      <div className="mt-4 pt-3 border-t border-brand-dark/10 w-full max-w-2xl text-center">
+        <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-dark/70">
+          Also Upcoming: NECO GCE (TBA) &nbsp;•&nbsp; WAEC (2027) &nbsp;•&nbsp; JAMB (2027) &nbsp;•&nbsp; NECO (2027)
+        </p>
       </div>
     </div>
   );
