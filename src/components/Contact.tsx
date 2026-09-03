@@ -69,11 +69,17 @@ const Contact: React.FC = () => {
           {/* Form */}
           <div className="bg-white p-10 shadow-2xl rounded-tr-[80px] transform transition-transform duration-500 hover:-translate-y-2">
             <h3 className="font-serif text-2xl font-bold mb-8 text-brand-dark">Send an Inquiry</h3>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form action="https://formsubmit.co/mustardseed@gmail.com" method="POST" className="space-y-6">
+              {/* FormSubmit Configuration */}
+              <input type="hidden" name="_subject" value="New Inquiry from Peculiar Treasure Website" />
+              <input type="hidden" name="_captcha" value="false" />
+              
               <div className="group">
                 <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Full Name</label>
                 <input
                   type="text"
+                  name="name"
+                  required
                   className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
                   placeholder="Enter your name"
                 />
@@ -83,6 +89,8 @@ const Contact: React.FC = () => {
                 <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Email Address</label>
                 <input
                   type="email"
+                  name="email"
+                  required
                   className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
                   placeholder="Enter your email"
                 />
@@ -91,6 +99,8 @@ const Contact: React.FC = () => {
               <div className="group">
                 <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Your Message</label>
                 <textarea
+                  name="message"
+                  required
                   rows={4}
                   className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark resize-none"
                   placeholder="Which subjects do you need help with?"
