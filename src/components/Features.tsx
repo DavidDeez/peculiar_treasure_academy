@@ -1,20 +1,34 @@
 import React from 'react';
+import CountUp from 'react-countup';
+import { motion } from 'framer-motion';
 
 const Features: React.FC = () => {
   return (
     <section id="features" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <motion.div 
+          className="text-center max-w-3xl mx-auto mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
             The <span className="italic font-light text-brand-gold">Peculiar</span> Experience
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             An environment meticulously crafted for academic immersion and personal growth.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[160px] md:auto-rows-[250px]">
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[160px] md:auto-rows-[250px]"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           
           {/* Box 1: Study Spaces (with Mobile Overlays) */}
           <div className="col-span-2 md:col-span-8 bg-[#faf9f6] p-6 md:p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group min-h-[200px] md:min-h-0">
@@ -24,7 +38,9 @@ const Features: React.FC = () => {
             {/* Mobile Decorative Stats Overlay */}
             <div className="absolute top-4 right-4 z-20 flex md:hidden flex-col gap-2 items-end">
               <div className="bg-brand-dark/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-brand-gold/40 shadow-xl flex items-center gap-2">
-                <span className="text-brand-gold font-serif font-bold text-lg leading-none">98%</span>
+                <span className="text-brand-gold font-serif font-bold text-lg leading-none">
+                  <CountUp end={98} duration={2.5} enableScrollSpy scrollSpyOnce />%
+                </span>
                 <span className="text-white text-[9px] uppercase tracking-widest font-medium leading-none">Success<br/>Rate</span>
               </div>
               <div className="bg-brand-gold/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/20 shadow-xl">
@@ -40,7 +56,9 @@ const Features: React.FC = () => {
 
           {/* Box 2 (Desktop Only) */}
           <div className="hidden md:flex md:col-span-4 bg-brand-dark p-10 rounded-2xl flex-col justify-center text-center">
-            <div className="text-brand-gold text-5xl font-serif font-bold mb-4">98%</div>
+            <div className="text-brand-gold text-5xl font-serif font-bold mb-4">
+              <CountUp end={98} duration={2.5} enableScrollSpy scrollSpyOnce />%
+            </div>
             <h3 className="text-xl font-bold text-white mb-2 leading-tight">Exam Success</h3>
             <p className="text-gray-400 text-sm">Consistent excellence across all major boards.</p>
           </div>
@@ -102,7 +120,7 @@ const Features: React.FC = () => {
             </div>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </section>
