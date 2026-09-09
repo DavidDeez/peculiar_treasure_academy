@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Feather } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,12 +13,16 @@ const Navbar: React.FC = () => {
           
           {/* Logo */}
           <div 
-            className="flex-shrink-0 cursor-pointer" 
+            className="flex-shrink-0 cursor-pointer flex items-center gap-3" 
             onClick={() => window.scrollTo(0,0)}
           >
+            <div className="flex flex-col items-center justify-center">
+              <img src="/images/logo.png" alt="Peculiar Treasure Academy Logo" className="h-10 md:h-12 w-auto object-contain" />
+              <Feather className="h-3 w-3 text-brand-gold -mt-0.5 transform -rotate-45" />
+            </div>
             <h1 className="font-serif text-xl md:text-2xl font-bold tracking-tight text-brand-dark m-0 leading-tight md:leading-normal">
               Peculiar Treasure <br className="block md:hidden" />
-              <span className="uppercase text-brand-gold text-xs md:text-lg tracking-widest block md:inline">ACADEMY.</span>
+              <span className="uppercase text-brand-gold text-xs md:text-lg tracking-widest block md:inline md:ml-1.5">ACADEMY.</span>
             </h1>
           </div>
           
