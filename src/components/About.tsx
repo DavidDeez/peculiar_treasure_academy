@@ -35,16 +35,20 @@ const About: React.FC = () => {
               </p>
               
               {/* Co-proprietor remark */}
-              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center md:items-start gap-6">
-                <img 
-                  src="/images/mr_salaman.webp" 
-                  alt="Mr. Olukayode Salaman" 
-                  className="w-24 h-32 md:w-28 md:h-36 rounded-md object-cover shadow-md border-2 border-brand-gold shrink-0"
-                />
-                <div className="mt-2">
-                  <h4 className="font-serif font-bold text-brand-dark text-lg md:text-xl">Mr. Olukayode Salaman</h4>
-                  <p className="text-sm text-brand-gold uppercase tracking-wider font-bold mb-2">Co-Proprietor</p>
-                  <p className="text-sm text-gray-500 italic">
+              <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                <div className="relative group overflow-hidden rounded-md shadow-xl shrink-0 w-48 h-64 md:w-56 md:h-[300px]">
+                  <img 
+                    src="/images/mr_salaman.webp" 
+                    alt="Mr. Olukayode Salaman" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent p-4 pt-20">
+                    <h4 className="text-white font-serif font-bold text-lg leading-tight">Mr. Olukayode Salaman</h4>
+                    <p className="text-brand-gold text-[10px] uppercase tracking-widest font-bold mt-1">Co-Proprietor</p>
+                  </div>
+                </div>
+                <div className="mt-2 flex-1 text-center sm:text-left">
+                  <p className="text-sm md:text-base text-gray-500 italic leading-relaxed">
                     "Ensuring standard, discipline, and seamless external examination registrations."
                   </p>
                 </div>
