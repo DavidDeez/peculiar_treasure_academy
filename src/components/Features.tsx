@@ -16,27 +16,39 @@ const Features: React.FC = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[160px] md:auto-rows-[250px]">
           
-          {/* Box 1 */}
-          <div className="col-span-2 md:col-span-8 bg-[#faf9f6] p-6 md:p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group">
+          {/* Box 1: Study Spaces (with Mobile Overlays) */}
+          <div className="col-span-2 md:col-span-8 bg-[#faf9f6] p-6 md:p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group min-h-[200px] md:min-h-0">
             <img src="/images/study_hall.webp" alt="Study Hall" className="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-700" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 z-10" />
+            
+            {/* Mobile Decorative Stats Overlay */}
+            <div className="absolute top-4 right-4 z-20 flex md:hidden flex-col gap-2 items-end">
+              <div className="bg-brand-dark/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-brand-gold/40 shadow-xl flex items-center gap-2">
+                <span className="text-brand-gold font-serif font-bold text-lg leading-none">98%</span>
+                <span className="text-white text-[9px] uppercase tracking-widest font-medium leading-none">Success<br/>Rate</span>
+              </div>
+              <div className="bg-brand-gold/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/20 shadow-xl">
+                <span className="text-brand-dark font-bold text-[10px] uppercase tracking-widest">Elite Faculty</span>
+              </div>
+            </div>
+
             <div className="relative z-20">
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Immersive Study Spaces</h3>
-              <p className="text-gray-200 text-xs md:text-sm max-w-md">Quiet environments equipped with the resources needed for deep focus.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2 drop-shadow-md">Immersive Study Spaces</h3>
+              <p className="text-gray-200 text-xs md:text-sm max-w-md drop-shadow-md">Quiet environments equipped with the resources needed for deep focus.</p>
             </div>
           </div>
 
-          {/* Box 2 */}
-          <div className="col-span-1 md:col-span-4 bg-brand-dark p-4 md:p-10 rounded-2xl flex flex-col justify-center text-center">
-            <div className="text-brand-gold text-3xl md:text-5xl font-serif font-bold mb-2 md:mb-4">98%</div>
-            <h3 className="text-sm md:text-xl font-bold text-white mb-1 md:mb-2 leading-tight">Exam Success</h3>
-            <p className="text-gray-400 text-[10px] md:text-sm hidden sm:block">Consistent excellence across all major boards.</p>
+          {/* Box 2 (Desktop Only) */}
+          <div className="hidden md:flex md:col-span-4 bg-brand-dark p-10 rounded-2xl flex-col justify-center text-center">
+            <div className="text-brand-gold text-5xl font-serif font-bold mb-4">98%</div>
+            <h3 className="text-xl font-bold text-white mb-2 leading-tight">Exam Success</h3>
+            <p className="text-gray-400 text-sm">Consistent excellence across all major boards.</p>
           </div>
 
-          {/* Box 3 */}
-          <div className="col-span-1 md:col-span-4 bg-brand-gold p-4 md:p-10 rounded-2xl flex flex-col justify-center text-center">
-            <h3 className="text-sm md:text-xl font-bold text-brand-dark mb-2 md:mb-4 leading-tight">Elite Faculty</h3>
-            <p className="text-brand-dark/80 text-[10px] md:text-sm leading-relaxed hidden sm:block">
+          {/* Box 3 (Desktop Only) */}
+          <div className="hidden md:flex md:col-span-4 bg-brand-gold p-10 rounded-2xl flex-col justify-center text-center">
+            <h3 className="text-xl font-bold text-brand-dark mb-4 leading-tight">Elite Faculty</h3>
+            <p className="text-brand-dark/80 text-sm leading-relaxed">
               Our educators are carefully selected experts with years of proven pedagogical success.
             </p>
           </div>
