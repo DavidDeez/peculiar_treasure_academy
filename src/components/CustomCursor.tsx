@@ -43,7 +43,7 @@ const CustomCursor: React.FC = () => {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-brand-gold pointer-events-none z-[9999] hidden md:block mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-brand-gold pointer-events-none z-[9999] hidden md:block"
         animate={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
