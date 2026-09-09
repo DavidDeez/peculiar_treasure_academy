@@ -67,9 +67,12 @@ const Features: React.FC = () => {
           <div className="col-span-2 md:col-span-6 bg-brand-dark p-6 md:p-8 rounded-2xl flex flex-col justify-center">
             <h3 className="text-lg md:text-xl font-bold text-brand-gold mb-4 border-b border-gray-800 pb-3">Our Schedule</h3>
             <ul className="space-y-2 md:space-y-3">
-              <li className="flex justify-between items-center text-xs md:text-sm">
-                <span className="text-gray-400 uppercase tracking-widest font-bold">Mon - Thu</span>
-                <span className="text-white font-serif">9:00 AM - 1:00 PM</span>
+              <li className="flex justify-between items-start text-xs md:text-sm">
+                <span className="text-gray-400 uppercase tracking-widest font-bold mt-1">Mon - Thu</span>
+                <div className="text-right flex flex-col gap-1">
+                  <span className="text-white font-serif">9:00 AM - 1:00 PM</span>
+                  <span className="text-white font-serif">3:00 PM - 6:00 PM</span>
+                </div>
               </li>
               <li className="flex justify-between items-center text-xs md:text-sm">
                 <span className="text-gray-400 uppercase tracking-widest font-bold">Fridays</span>
