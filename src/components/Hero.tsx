@@ -44,10 +44,13 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold mb-8 text-sm font-medium tracking-wide hover:bg-brand-gold/20 transition-colors cursor-pointer">
-              <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
-              Enrolling for New Batches
-            </div>
+            <a 
+              href="#contact"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold mb-8 text-sm font-medium tracking-wide hover:bg-brand-gold hover:text-white transition-all cursor-pointer transform hover:scale-105 shadow-sm hover:shadow-md"
+            >
+              <span className="w-2 h-2 rounded-full bg-current animate-pulse"></span>
+              Enrolling for New Batches &rarr;
+            </a>
             
             <h1 className="text-4xl md:text-6xl lg:text-5xl xl:text-7xl font-bold leading-[1.1] mb-6 md:mb-8 text-brand-dark">
               Dedicated Tutorials for <br className="hidden md:block" />
@@ -91,7 +94,7 @@ const Hero: React.FC = () => {
           </motion.div>
 
           {/* Image Layout with Parallax */}
-          <div className="relative group perspective-1000 mt-12 lg:mt-0">
+          <div className="relative group perspective-1000 mt-2 lg:mt-0">
             <motion.img 
               src="/images/hero_main.webp" 
               alt="Students studying in library" 

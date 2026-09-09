@@ -50,15 +50,15 @@ const FAQ: React.FC = () => {
               viewport={{ once: true }}
             >
               <button
-                className="w-full px-6 py-5 text-left flex justify-between items-center bg-[#faf9f6] hover:bg-gray-50 transition-colors"
+                className="w-full px-5 py-4 text-left flex justify-between items-center bg-[#faf9f6] hover:bg-gray-50 transition-colors"
                 onClick={() => toggleFAQ(index)}
               >
-                <span className="font-bold text-brand-dark pr-4">{faq.question}</span>
+                <span className="font-bold text-sm md:text-base text-brand-dark pr-4">{faq.question}</span>
                 <motion.div
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ChevronDown className="text-brand-gold w-5 h-5" />
+                  <ChevronDown className="text-brand-gold w-4 h-4 md:w-5 md:h-5" />
                 </motion.div>
               </button>
               
@@ -70,7 +70,7 @@ const FAQ: React.FC = () => {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-6 pb-5 pt-2 text-gray-600 text-sm leading-relaxed bg-[#faf9f6]">
+                    <div className="px-5 pb-4 pt-1 text-gray-600 text-xs md:text-sm leading-relaxed bg-[#faf9f6]">
                       {faq.answer}
                     </div>
                   </motion.div>
