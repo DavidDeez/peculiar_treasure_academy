@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
             <motion.img 
               src="/images/hero_accent.webp" 
               alt="Academic books and pen" 
-              className="absolute -top-6 -right-2 sm:top-auto sm:right-auto sm:-bottom-6 sm:-left-6 md:-bottom-8 md:-left-8 xl:-bottom-12 xl:-left-12 aspect-square w-24 sm:w-32 md:w-48 xl:w-64 object-cover border-4 md:border-8 border-[#faf9f6] shadow-2xl z-20 rounded-sm transition-transform duration-700 group-hover:-translate-y-4 group-hover:-translate-x-4" 
+              className="absolute -bottom-6 -left-4 sm:-bottom-6 sm:-left-6 md:-bottom-8 md:-left-8 xl:-bottom-12 xl:-left-12 aspect-square w-24 sm:w-32 md:w-48 xl:w-64 object-cover border-4 md:border-8 border-[#faf9f6] shadow-2xl z-20 rounded-sm transition-transform duration-700 group-hover:-translate-y-4 group-hover:-translate-x-4" 
               style={{ y: y2 }}
             />
           </div>
