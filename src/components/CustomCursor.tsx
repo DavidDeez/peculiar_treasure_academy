@@ -11,16 +11,22 @@ const CustomCursor: React.FC = () => {
     };
 
     const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.classList.contains('cursor-pointer')
-      ) {
-        setIsHovering(true);
-      } else {
+      try {
+        const target = e.target as HTMLElement;
+        if (!target || !target.tagName) {
+          setIsHovering(false);
+          return;
+        }
+        
+        const tagName = target.tagName.toLowerCase();
+        const isHoverable = 
+          tagName === 'a' || 
+          tagName === 'button' || 
+          (target.closest && (target.closest('a') || target.closest('button'))) ||
+          (target.classList && target.classList.contains('cursor-pointer'));
+
+        setIsHovering(!!isHoverable);
+      } catch (err) {
         setIsHovering(false);
       }
     };

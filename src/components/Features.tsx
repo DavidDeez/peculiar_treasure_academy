@@ -1,5 +1,4 @@
 import React from 'react';
-import CountUp from 'react-countup';
 import { motion } from 'framer-motion';
 
 const Features: React.FC = () => {
@@ -39,7 +38,7 @@ const Features: React.FC = () => {
             <div className="absolute top-4 right-4 z-20 flex md:hidden flex-col gap-2 items-end">
               <div className="bg-brand-dark/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-brand-gold/40 shadow-xl flex items-center gap-2">
                 <span className="text-brand-gold font-serif font-bold text-lg leading-none">
-                  <CountUp end={98} duration={2.5} enableScrollSpy scrollSpyOnce />%
+                  98%
                 </span>
                 <span className="text-white text-[9px] uppercase tracking-widest font-medium leading-none">Success<br/>Rate</span>
               </div>
@@ -57,7 +56,7 @@ const Features: React.FC = () => {
           {/* Box 2 (Desktop Only) */}
           <div className="hidden md:flex md:col-span-4 bg-brand-dark p-10 rounded-2xl flex-col justify-center text-center">
             <div className="text-brand-gold text-5xl font-serif font-bold mb-4">
-              <CountUp end={98} duration={2.5} enableScrollSpy scrollSpyOnce />%
+              98%
             </div>
             <h3 className="text-xl font-bold text-white mb-2 leading-tight">Exam Success</h3>
             <p className="text-gray-400 text-sm">Consistent excellence across all major boards.</p>
