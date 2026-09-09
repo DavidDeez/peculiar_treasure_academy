@@ -94,10 +94,10 @@ const Features: React.FC = () => {
                 Premium Home Lessons
               </h3>
               <p className="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 max-w-sm">
-                Top tutors deployed directly to your residence for maximum concentration and zero distractions.
+                Experience highly focused, exclusive learning directly at the Proprietor's residence. We guarantee zero distractions and maximum concentration.
               </p>
               <a href="#contact" className="inline-flex items-center text-[10px] md:text-xs font-bold uppercase tracking-widest text-brand-gold hover:text-white transition-colors">
-                Request Tutor &rarr;
+                Request Slot &rarr;
               </a>
             </div>
           </div>
