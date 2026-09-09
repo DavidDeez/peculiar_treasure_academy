@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
           </motion.div>
 
           {/* Image Layout with Parallax */}
-          <div className="relative group perspective-1000">
+          <div className="relative group perspective-1000 mt-10 lg:mt-0">
             <motion.img 
               src="/images/hero_main.webp" 
               alt="Students studying in library" 
@@ -103,7 +103,7 @@ const Hero: React.FC = () => {
             <motion.img 
               src="/images/hero_accent.webp" 
               alt="Academic books and pen" 
-              className="hidden md:block absolute -bottom-12 -left-12 aspect-square w-64 object-cover border-8 border-[#faf9f6] shadow-2xl z-20 rounded-sm transition-transform duration-700 group-hover:-translate-y-4 group-hover:-translate-x-4" 
+              className="hidden xl:block absolute -bottom-12 -left-12 aspect-square w-64 object-cover border-8 border-[#faf9f6] shadow-2xl z-20 rounded-sm transition-transform duration-700 group-hover:-translate-y-4 group-hover:-translate-x-4" 
               style={{ y: y2 }}
             />
           </div>

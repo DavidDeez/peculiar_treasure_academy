@@ -29,14 +29,14 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 bg-white">
+    <section id="faq" className="py-12 md:py-16 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold leading-tight mb-4 text-brand-dark">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3 text-brand-dark">
             Frequently Asked <span className="italic font-light text-brand-gold">Questions.</span>
           </h2>
-          <p className="text-gray-600">Everything you need to know about Peculiar Treasure Academy.</p>
+          <p className="text-gray-600 text-sm md:text-base">Everything you need to know about Peculiar Treasure Academy.</p>
         </div>
 
         <div className="space-y-4">
