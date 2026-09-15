@@ -10,18 +10,18 @@ const About: React.FC = () => {
           <div className="relative group overflow-hidden rounded-sm shadow-xl">
             <img 
               src="/images/mrs_salaman.webp" 
-              alt="Mrs. Salaman, Proprietor" 
+              alt="Mrs. Yemisi Salaman, Proprietress" 
               className="w-full h-auto aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-dark to-transparent p-8 pt-20">
               <h3 className="text-white text-2xl font-serif font-bold">Mrs. Yemisi Salaman</h3>
-              <p className="text-brand-gold text-sm tracking-widest uppercase font-medium">Proprietor</p>
+              <p className="text-brand-gold text-sm tracking-widest uppercase font-medium">Proprietress</p>
             </div>
           </div>
 
           <div>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-8 text-brand-dark">
-              A Message from <br/><span className="italic font-light text-brand-gold">Our Proprietor.</span>
+              A Message from <br/><span className="italic font-light text-brand-gold">Our Proprietress.</span>
             </h2>
             <div className="prose prose-lg text-gray-600">
               <p className="mb-6 leading-relaxed">
