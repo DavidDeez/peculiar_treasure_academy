@@ -1,33 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const WHATSAPP_NUMBER = '2348164101457'; // 0816 410 1457 in international format
-
 const Contact: React.FC = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = `Hello, I'm reaching out from the Peculiar Treasure Academy website.
-
-*Name:* ${form.name}
-*Email:* ${form.email}
-
-*Message:*
-${form.message}`;
-
-    const encodedText = encodeURIComponent(text);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`;
-    window.open(whatsappUrl, '_blank');
-    setSubmitted(true);
-    setForm({ name: '', email: '', message: '' });
-  };
-
   return (
     <section id="contact" className="py-32 bg-[#faf9f6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,77 +68,52 @@ ${form.message}`;
 
           {/* Form */}
           <div className="bg-white p-10 shadow-2xl rounded-tr-[80px] transform transition-transform duration-500 hover:-translate-y-2">
-            <h3 className="font-serif text-2xl font-bold mb-2 text-brand-dark">Send an Inquiry</h3>
-            <p className="text-sm text-gray-400 mb-8">Your message will be sent directly to us on WhatsApp.</p>
-
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h4 className="text-xl font-bold text-brand-dark">WhatsApp Opened!</h4>
-                <p className="text-gray-500 text-sm">Your message was pre-filled and sent to our WhatsApp. We'll respond shortly!</p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-4 text-sm text-brand-gold underline hover:text-brand-dark transition-colors"
-                >
-                  Send another message
-                </button>
+            <h3 className="font-serif text-2xl font-bold mb-8 text-brand-dark">Send an Inquiry</h3>
+            <form action="https://formsubmit.co/mustardseed@gmail.com" method="POST" className="space-y-6">
+              {/* FormSubmit Configuration */}
+              <input type="hidden" name="_subject" value="New Inquiry from Peculiar Treasure Website" />
+              <input type="hidden" name="_captcha" value="false" />
+              
+              <div className="group">
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
+                  placeholder="Enter your name"
+                />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Full Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                
-                <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
-                    placeholder="Enter your email"
-                  />
-                </div>
+              
+              <div className="group">
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark"
+                  placeholder="Enter your email"
+                />
+              </div>
 
-                <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Your Message</label>
-                  <textarea
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark resize-none"
-                    placeholder="Which subjects do you need help with?"
-                  />
-                </div>
+              <div className="group">
+                <label className="block text-xs uppercase tracking-widest text-gray-400 font-bold mb-2 group-focus-within:text-brand-gold transition-colors">Your Message</label>
+                <textarea
+                  name="message"
+                  required
+                  rows={4}
+                  className="w-full border-b border-gray-200 py-3 focus:outline-none focus:border-brand-gold bg-transparent transition-colors text-brand-dark resize-none"
+                  placeholder="Which subjects do you need help with?"
+                />
+              </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-green-500 text-white px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-green-600 transition-colors flex justify-center items-center gap-2 mt-8 transform hover:scale-[1.02] rounded-sm"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path fillRule="evenodd" d="M12.031 0C5.402 0 .016 5.385.016 12.016c0 2.115.553 4.18 1.603 5.992L.032 24l6.16-1.616c1.761 1 3.766 1.528 5.839 1.528 6.627 0 12.013-5.385 12.013-12.016C24.044 5.385 18.658 0 12.031 0zm-.016 21.905c-1.802 0-3.562-.485-5.11-1.403l-.367-.217-3.799.996.996-3.702-.238-.378a10.057 10.057 0 01-1.543-5.384c0-5.545 4.512-10.057 10.061-10.057 5.548 0 10.06 4.512 10.06 10.057 0 5.547-4.512 10.058-10.06 10.058zm5.518-7.53c-.302-.152-1.794-.886-2.07-.988-.276-.102-.477-.152-.678.152-.201.303-.781.988-.958 1.19-.176.202-.353.228-.654.076-1.526-.777-2.673-1.41-3.69-3.14-.202-.345.201-.318.647-.912.1-.152.05-.278 0-.43-.05-.151-.678-1.636-.928-2.241-.242-.587-.487-.507-.678-.517h-.578c-.201 0-.528.076-.804.38s-1.056 1.036-1.056 2.527 1.082 2.932 1.233 3.134c.15.203 2.137 3.262 5.176 4.57 2.05.88 2.89.967 3.966.814 1.157-.165 3.565-1.458 4.067-2.868.503-1.41.503-2.619.352-2.868-.15-.253-.552-.405-.853-.557z" clipRule="evenodd" />
-                  </svg>
-                  Send via WhatsApp <ArrowRight className="h-4 w-4" />
-                </button>
-              </form>
-            )}
+              <button
+                type="submit"
+                className="w-full bg-brand-dark text-white px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-gray-800 transition-colors flex justify-center items-center gap-2 mt-8 transform hover:scale-[1.02]"
+              >
+                Submit Inquiry <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
           </div>
 
         </div>
@@ -174,5 +123,3 @@ ${form.message}`;
 };
 
 export default Contact;
-
-
