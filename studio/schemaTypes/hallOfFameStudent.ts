@@ -32,5 +32,14 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'image',
+      title: 'Student Photo (Optional)',
+      description: 'Upload a picture of the student',
+      type: 'image',
+      options: {
+        hotspot: true, 
+      },
+    }),
   ],
 })
