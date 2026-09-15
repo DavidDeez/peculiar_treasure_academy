@@ -71,7 +71,7 @@ const HallOfFame: React.FC = () => {
                   </div>
                   <div className="relative z-10">
                     <p className="text-[10px] md:text-sm font-semibold text-brand-gold uppercase tracking-widest mb-1 md:mb-2">{result.exam}</p>
-                    <h3 className="text-2xl md:text-5xl font-black text-brand-dark font-serif mb-2 md:mb-6 tracking-tight">{result.score}</h3>
+                    <h3 className="text-xl md:text-3xl font-black text-brand-dark font-serif mb-2 md:mb-6 tracking-tight leading-tight">{result.score}</h3>
                     <div className="w-8 md:w-12 h-1 bg-brand-gold/20 mb-3 md:mb-6 group-hover:bg-brand-gold transition-colors"></div>
                     <p className="font-bold text-gray-800 text-xs md:text-lg">{result.student}</p>
                     <p className="text-[10px] md:text-sm text-gray-500 mt-0.5 md:mt-1 leading-tight">{result.subject}</p>
