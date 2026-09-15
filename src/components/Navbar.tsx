@@ -32,10 +32,19 @@ const Navbar: React.FC = () => {
           style={{ backdropFilter: 'blur(16px)', backgroundColor: 'rgba(0,0,0,0.5)' }}
           onClick={closeLogo}
         >
+          {/* Close Button */}
+          <button
+            onClick={closeLogo}
+            className="absolute top-6 right-6 w-10 h-10 bg-white/20 hover:bg-white/40 text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-sm border border-white/30"
+            title="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
           <img
             src="/images/logo.png"
             alt="Peculiar Treasure Academy Logo"
-            className="w-[80vw] max-w-lg h-auto object-contain drop-shadow-2xl animate-[zoomIn_0.3s_ease-out]"
+            className="w-[80vw] max-w-lg h-auto object-contain drop-shadow-2xl"
             style={{ animation: 'zoomIn 0.3s ease-out' }}
             onClick={(e) => e.stopPropagation()}
           />
