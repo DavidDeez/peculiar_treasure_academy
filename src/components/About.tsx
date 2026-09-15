@@ -38,7 +38,7 @@ const About: React.FC = () => {
               <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-6">
                 <div className="relative group overflow-hidden rounded-md shadow-xl shrink-0 w-48 h-64 md:w-56 md:h-[300px]">
                   <img 
-                    src="/images/mr_salaman.webp" 
+                    src="/images/mr_salaman.jpg" 
                     alt="Mr. Olukayode Salaman" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
