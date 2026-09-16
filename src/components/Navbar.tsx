@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
                 onClick={openLogo}
                 title="Click to view logo"
               >
-                <img src="/images/logo.png" alt="Peculiar Treasure Academy Logo" className="h-14 md:h-16 w-auto object-contain" />
+                <img src="/images/logo.png" alt="Peculiar Treasure Academy Logo" className="h-10 md:h-12 w-auto object-contain" />
               </div>
               <h1
                 className="font-serif text-xl md:text-2xl font-bold tracking-tight text-brand-dark m-0 leading-tight md:leading-normal cursor-pointer"

@@ -97,11 +97,10 @@ const HallOfFame: React.FC = () => {
                     }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{
-                      type: "spring",
-                      stiffness: 80,
-                      damping: 12,
-                      delay: index * 0.1,
-                      mass: 0.8
+                      type: "tween",
+                      ease: "easeOut",
+                      duration: 4,
+                      delay: index * 0.1
                     }}
                     className="bg-white border border-gray-100 p-6 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-shadow duration-300 relative overflow-hidden group origin-center"
                   >
