@@ -69,7 +69,7 @@ const Contact: React.FC = () => {
           {/* Form */}
           <div className="bg-white p-10 shadow-2xl rounded-tr-[80px] transform transition-transform duration-500 hover:-translate-y-2">
             <h3 className="font-serif text-2xl font-bold mb-8 text-brand-dark">Send an Inquiry</h3>
-            <form action="https://formsubmit.co/mustardseed@gmail.com" method="POST" className="space-y-6">
+            <form action="https://formsubmit.co/mustardseed2005@gmail.com" method="POST" className="space-y-6">
               {/* FormSubmit Configuration */}
               <input type="hidden" name="_subject" value="New Inquiry from Peculiar Treasure Website" />
               <input type="hidden" name="_captcha" value="false" />
