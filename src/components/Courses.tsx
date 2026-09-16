@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import FloatingIcons from './FloatingIcons';
 
 const courses = [
   {
@@ -24,8 +25,9 @@ const courses = [
 
 const Courses: React.FC = () => {
   return (
-    <section id="courses" className="py-32 bg-brand-dark text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="courses" className="py-32 bg-brand-dark text-white relative">
+      <FloatingIcons />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-20">
           <div className="max-w-2xl">
