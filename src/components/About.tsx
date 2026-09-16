@@ -34,7 +34,7 @@ const About: React.FC = () => {
                 "Every child is a peculiar treasure. Sometimes, they just need the right polishing to shine."
               </p>
               
-              {/* Co-proprietor remark */}
+              {/* Proprietor remark */}
               <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-6">
                 <div className="relative group overflow-hidden rounded-md shadow-xl shrink-0 w-48 h-64 md:w-56 md:h-[300px]">
                   <img 
@@ -44,7 +44,7 @@ const About: React.FC = () => {
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent p-4 pt-20">
                     <h4 className="text-white font-serif font-bold text-lg leading-tight">Mr. Olukayode Salaman</h4>
-                    <p className="text-brand-gold text-[10px] uppercase tracking-widest font-bold mt-1">Co-Proprietor</p>
+                    <p className="text-brand-gold text-[10px] uppercase tracking-widest font-bold mt-1">Proprietor</p>
                   </div>
                 </div>
                 <div className="mt-2 flex-1 text-center sm:text-left">
