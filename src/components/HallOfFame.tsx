@@ -24,8 +24,14 @@ const HallOfFame: React.FC = () => {
   const [results, setResults] = useState<HallOfFameStudent[]>([]);
   const [loading, setLoading] = useState(true);
   const [useFallback, setUseFallback] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if mobile on mount and window resize
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     const fetchStudents = async () => {
       try {
         const query = '*[_type == "hallOfFameStudent"] | order(_createdAt asc)';
@@ -43,27 +49,29 @@ const HallOfFame: React.FC = () => {
       }
     };
     fetchStudents();
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const displayResults = useFallback ? defaultResults : results;
 
   return (
-    <section id="results" className="py-24 bg-white relative border-t border-gray-50 overflow-hidden">
+    <section id="results" className="py-12 md:py-24 bg-white relative border-t border-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-8 md:mb-16"
         >
           <div className="flex justify-center mb-4">
-            <Award className="h-12 w-12 text-brand-gold" />
+            <Award className="h-10 w-10 md:h-12 md:w-12 text-brand-gold" />
           </div>
           <h2 className="text-3xl md:text-5xl font-bold leading-tight text-brand-dark mb-4">
             The Hall of <span className="italic font-light text-brand-gold">Fame.</span>
           </h2>
-          <p className="text-gray-600 text-lg">Consistent academic excellence. Our track record speaks for itself.</p>
+          <p className="text-gray-600 text-base md:text-lg">Consistent academic excellence. Our track record speaks for itself.</p>
         </motion.div>
 
         {loading ? (
@@ -74,17 +82,20 @@ const HallOfFame: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 perspective-1000">
             {displayResults.length > 0 ? (
               displayResults.map((result, index) => {
-                const xOffset = index % 3 === 0 ? 150 : index % 3 === 2 ? -150 : 0;
-                const yOffset = index < 3 ? 150 : -150;
+                // On mobile, cards are in a single column, so a wide center-spread looks broken.
+                // We just slide them up gracefully on mobile. On desktop, they do the full deck spread.
+                const xOffset = isMobile ? 0 : (index % 3 === 0 ? 150 : index % 3 === 2 ? -150 : 0);
+                const yOffset = isMobile ? 50 : (index < 3 ? 150 : -150);
+                
                 return (
                   <motion.div 
                     key={result._id} 
                     initial={{
                       opacity: 0,
-                      scale: 0.3,
+                      scale: isMobile ? 0.8 : 0.3,
                       x: xOffset,
                       y: yOffset,
-                      rotate: index % 2 === 0 ? -25 : 25,
+                      rotate: isMobile ? 0 : (index % 2 === 0 ? -25 : 25),
                       zIndex: 10 - index
                     }}
                     whileInView={{
@@ -95,14 +106,14 @@ const HallOfFame: React.FC = () => {
                       rotate: 0,
                       zIndex: 1
                     }}
-                    viewport={{ once: true, amount: 0.1 }}
+                    viewport={{ once: true, margin: "50px" }}
                     transition={{
                       type: "tween",
                       ease: "easeOut",
                       duration: 2.5,
-                      delay: index * 0.1
+                      delay: isMobile ? index * 0.15 : index * 0.1
                     }}
-                    className="bg-white border border-gray-100 p-6 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-shadow duration-300 relative overflow-hidden group origin-center"
+                    className="bg-white border border-gray-100 p-5 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-shadow duration-300 relative overflow-hidden group origin-center"
                   >
                     <div className="absolute -top-2 -right-2 md:-top-4 md:-right-4 p-2 md:p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Star className="w-16 h-16 md:w-32 md:h-32 text-brand-dark fill-current" />
