@@ -22,8 +22,8 @@ const FloatingIcons: React.FC = () => {
   useEffect(() => {
     if (!containerRef.current) return;
     
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
+    const width = containerRef.current.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1000);
+    const height = containerRef.current.clientHeight || 500;
     
     // Initialize particles
     const particleCount = 12;
@@ -49,8 +49,8 @@ const FloatingIcons: React.FC = () => {
 
     const animate = () => {
       if (!containerRef.current) return;
-      const w = containerRef.current.clientWidth;
-      const h = containerRef.current.clientHeight;
+      const w = containerRef.current.clientWidth || width;
+      const h = containerRef.current.clientHeight || height;
       const p = particlesRef.current;
 
       // Update positions
@@ -133,13 +133,15 @@ const FloatingIcons: React.FC = () => {
     }
   };
 
+  if (!isReady) return <div ref={containerRef} className="absolute inset-0 z-0 opacity-0" />;
+
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden opacity-5 pointer-events-none">
+    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden opacity-20 pointer-events-none">
       {particlesRef.current.map((p) => (
         <div
           key={p.id}
           id={`particle-${p.id}`}
-          className="absolute top-0 left-0 text-white will-change-transform"
+          className="absolute top-0 left-0 text-brand-gold will-change-transform"
           style={{ 
             width: p.radius * 2, 
             height: p.radius * 2,
