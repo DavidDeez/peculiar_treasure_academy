@@ -31,8 +31,10 @@ const FloatingIcons: React.FC = () => {
       const particleCount = 15;
       const initialParticles: Particle[] = [];
       
+      const isMobile = window.innerWidth < 768;
+      
       for (let i = 0; i < particleCount; i++) {
-        const radius = 35;
+        const radius = isMobile ? 18 : 35;
         // Ensure they start inside the bounds
         const safeWidth = Math.max(width - radius * 2, 100);
         const safeHeight = Math.max(height - radius * 2, 100);
@@ -125,7 +127,8 @@ const FloatingIcons: React.FC = () => {
   }, [particles.length]);
 
   const getIcon = (type: number) => {
-    const props = { size: 60, strokeWidth: 1.5 };
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const props = { size: isMobile ? 30 : 60, strokeWidth: 1.5 };
     switch (type) {
       case 0: return <Book {...props} />;
       case 1: return <GraduationCap {...props} />;
