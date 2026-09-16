@@ -11,11 +11,13 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import CustomCursor from './components/CustomCursor';
+import FloatingIcons from './components/FloatingIcons';
 
 function App() {
   return (
     <div className="min-h-screen bg-[#faf9f6]">
       <CustomCursor />
+      <FloatingIcons />
       <Navbar />
       <main className="flex-grow">
         <Hero />

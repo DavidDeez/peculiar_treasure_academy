@@ -26,9 +26,9 @@ const FloatingIcons: React.FC = () => {
     // Use a small timeout to ensure the container is fully painted and sized
     const timer = setTimeout(() => {
       const width = containerRef.current?.clientWidth || window.innerWidth || 1000;
-      const height = containerRef.current?.clientHeight || 600; // fallback to 600
+      const height = containerRef.current?.clientHeight || window.innerHeight || 800; // Use window.innerHeight
       
-      const particleCount = 12;
+      const particleCount = 15;
       const initialParticles: Particle[] = [];
       
       for (let i = 0; i < particleCount; i++) {
@@ -64,15 +64,13 @@ const FloatingIcons: React.FC = () => {
     let lastTime = performance.now();
 
     const animate = (time: number) => {
-      // Use delta time to ensure consistent speed regardless of refresh rate
-      const dt = Math.min((time - lastTime) / 16.66, 2.0); // cap at 2.0 to avoid huge jumps
+      const dt = Math.min((time - lastTime) / 16.66, 2.0); 
       lastTime = time;
 
       const width = containerRef.current?.clientWidth || window.innerWidth;
-      const height = containerRef.current?.clientHeight || 600;
+      const height = containerRef.current?.clientHeight || window.innerHeight;
 
       setParticles((prev) => {
-        // We must clone the array and objects to mutate them safely in React state
         const p = prev.map(particle => ({ ...particle }));
 
         for (let i = 0; i < p.length; i++) {
@@ -138,7 +136,7 @@ const FloatingIcons: React.FC = () => {
   };
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden opacity-30 pointer-events-none">
+    <div ref={containerRef} className="fixed inset-0 z-[40] overflow-hidden opacity-15 pointer-events-none">
       {particles.map((p) => (
         <div
           key={p.id}
@@ -150,8 +148,8 @@ const FloatingIcons: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'opacity 1s ease-in', // Fade in smoothly
-            opacity: 1 // Start visible
+            transition: 'opacity 1s ease-in',
+            opacity: 1
           }}
         >
           {getIcon(p.type)}
