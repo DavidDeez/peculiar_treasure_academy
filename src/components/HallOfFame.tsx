@@ -79,11 +79,10 @@ const HallOfFame: React.FC = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 perspective-1000">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 perspective-1000">
             {displayResults.length > 0 ? (
               displayResults.map((result, index) => {
-                // On mobile, cards are in a single column, so a wide center-spread looks broken.
-                // We just slide them up gracefully on mobile. On desktop, they do the full deck spread.
+                // On mobile, cards are in 2 columns. We just slide them up gracefully on mobile. On desktop, they do the full deck spread.
                 const xOffset = isMobile ? 0 : (index % 3 === 0 ? 150 : index % 3 === 2 ? -150 : 0);
                 const yOffset = isMobile ? 50 : (index < 3 ? 150 : -150);
                 
@@ -113,7 +112,7 @@ const HallOfFame: React.FC = () => {
                       duration: 2.5,
                       delay: isMobile ? index * 0.15 : index * 0.1
                     }}
-                    className="bg-white border border-gray-100 p-5 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-shadow duration-300 relative overflow-hidden group origin-center"
+                    className="bg-white border border-gray-100 p-4 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-shadow duration-300 relative overflow-hidden group origin-center"
                   >
                     <div className="absolute -top-2 -right-2 md:-top-4 md:-right-4 p-2 md:p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Star className="w-16 h-16 md:w-32 md:h-32 text-brand-dark fill-current" />
