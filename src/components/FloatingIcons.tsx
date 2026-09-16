@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Book, GraduationCap, BookOpen, Library } from 'lucide-react';
 
 interface Particle {
@@ -15,115 +15,119 @@ interface Particle {
 
 const FloatingIcons: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const animationRef = useRef<number>();
-  const [isReady, setIsReady] = React.useState(false);
+  const [particles, setParticles] = useState<Particle[]>([]);
+  
+  // Track if we've initialized to avoid StrictMode double-init issues
+  const initialized = useRef(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (initialized.current) return;
     
-    const width = containerRef.current.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1000);
-    const height = containerRef.current.clientHeight || 500;
-    
-    // Initialize particles
-    const particleCount = 12;
-    const newParticles: Particle[] = [];
-    
-    for (let i = 0; i < particleCount; i++) {
-      const radius = 35; // approx half the icon size
-      newParticles.push({
-        id: i,
-        x: Math.random() * (width - radius * 2) + radius,
-        y: Math.random() * (height - radius * 2) + radius,
-        vx: (Math.random() - 0.5) * 1.5, // slow speed
-        vy: (Math.random() - 0.5) * 1.5,
-        radius: radius,
-        type: Math.floor(Math.random() * 4), // 4 different icons
-        rotation: Math.random() * 360,
-        vRot: (Math.random() - 0.5) * 0.8 // slow rotation
-      });
-    }
-    
-    particlesRef.current = newParticles;
-    setIsReady(true);
-
-    const animate = () => {
-      if (!containerRef.current) return;
-      const w = containerRef.current.clientWidth || width;
-      const h = containerRef.current.clientHeight || height;
-      const p = particlesRef.current;
-
-      // Update positions
-      for (let i = 0; i < p.length; i++) {
-        p[i].x += p[i].vx;
-        p[i].y += p[i].vy;
-        p[i].rotation += p[i].vRot;
-
-        // Wall collisions
-        if (p[i].x - p[i].radius <= 0) { p[i].x = p[i].radius; p[i].vx *= -1; }
-        if (p[i].x + p[i].radius >= w) { p[i].x = w - p[i].radius; p[i].vx *= -1; }
-        if (p[i].y - p[i].radius <= 0) { p[i].y = p[i].radius; p[i].vy *= -1; }
-        if (p[i].y + p[i].radius >= h) { p[i].y = h - p[i].radius; p[i].vy *= -1; }
-
-        // Particle collisions
-        for (let j = i + 1; j < p.length; j++) {
-          const dx = p[j].x - p[i].x;
-          const dy = p[j].y - p[i].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const minDist = p[i].radius + p[j].radius;
-
-          if (dist < minDist) {
-            // Simple elastic collision response
-            const angle = Math.atan2(dy, dx);
-            const sin = Math.sin(angle);
-            const cos = Math.cos(angle);
-
-            // Rotate velocities to align with collision angle
-            const vx1 = p[i].vx * cos + p[i].vy * sin;
-            const vy1 = p[i].vy * cos - p[i].vx * sin;
-            const vx2 = p[j].vx * cos + p[j].vy * sin;
-            const vy2 = p[j].vy * cos - p[j].vx * sin;
-
-            // Swap velocities (assuming equal mass)
-            const vx1Final = vx2;
-            const vx2Final = vx1;
-
-            // Rotate back
-            p[i].vx = vx1Final * cos - vy1 * sin;
-            p[i].vy = vy1 * cos + vx1Final * sin;
-            p[j].vx = vx2Final * cos - vy2 * sin;
-            p[j].vy = vy2 * cos + vx2Final * sin;
-            
-            // Move apart to prevent sticking
-            const overlap = (minDist - dist) / 2.0;
-            p[i].x -= overlap * cos;
-            p[i].y -= overlap * sin;
-            p[j].x += overlap * cos;
-            p[j].y += overlap * sin;
-          }
-        }
+    // Use a small timeout to ensure the container is fully painted and sized
+    const timer = setTimeout(() => {
+      const width = containerRef.current?.clientWidth || window.innerWidth || 1000;
+      const height = containerRef.current?.clientHeight || 600; // fallback to 600
+      
+      const particleCount = 12;
+      const initialParticles: Particle[] = [];
+      
+      for (let i = 0; i < particleCount; i++) {
+        const radius = 35;
+        // Ensure they start inside the bounds
+        const safeWidth = Math.max(width - radius * 2, 100);
+        const safeHeight = Math.max(height - radius * 2, 100);
+        
+        initialParticles.push({
+          id: i,
+          x: (Math.random() * safeWidth) + radius,
+          y: (Math.random() * safeHeight) + radius,
+          vx: (Math.random() - 0.5) * 2.0, 
+          vy: (Math.random() - 0.5) * 2.0,
+          radius: radius,
+          type: i % 4, // Guarantee even distribution of 4 icons
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 1.5 
+        });
       }
+      
+      setParticles(initialParticles);
+      initialized.current = true;
+    }, 100);
 
-      // Update DOM directly for performance without React state overhead
-      p.forEach((particle) => {
-        const el = document.getElementById(`particle-${particle.id}`);
-        if (el) {
-          el.style.transform = `translate(${particle.x - particle.radius}px, ${particle.y - particle.radius}px) rotate(${particle.rotation}deg)`;
-        }
-      });
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (particles.length === 0) return;
+
+    let animationId: number;
+    let lastTime = performance.now();
+
+    const animate = (time: number) => {
+      // Use delta time to ensure consistent speed regardless of refresh rate
+      const dt = Math.min((time - lastTime) / 16.66, 2.0); // cap at 2.0 to avoid huge jumps
+      lastTime = time;
+
+      const width = containerRef.current?.clientWidth || window.innerWidth;
+      const height = containerRef.current?.clientHeight || 600;
+
+      setParticles((prev) => {
+        // We must clone the array and objects to mutate them safely in React state
+        const p = prev.map(particle => ({ ...particle }));
+
+        for (let i = 0; i < p.length; i++) {
+          p[i].x += p[i].vx * dt;
+          p[i].y += p[i].vy * dt;
+          p[i].rotation += p[i].vRot * dt;
+
+          // Wall collisions
+          if (p[i].x - p[i].radius <= 0) { p[i].x = p[i].radius; p[i].vx *= -1; }
+          if (p[i].x + p[i].radius >= width) { p[i].x = width - p[i].radius; p[i].vx *= -1; }
+          if (p[i].y - p[i].radius <= 0) { p[i].y = p[i].radius; p[i].vy *= -1; }
+          if (p[i].y + p[i].radius >= height) { p[i].y = height - p[i].radius; p[i].vy *= -1; }
+
+          // Particle collisions
+          for (let j = i + 1; j < p.length; j++) {
+            const dx = p[j].x - p[i].x;
+            const dy = p[j].y - p[i].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const minDist = p[i].radius + p[j].radius;
+
+            if (dist < minDist && dist > 0) {
+              const angle = Math.atan2(dy, dx);
+              const sin = Math.sin(angle);
+              const cos = Math.cos(angle);
+
+              const vx1 = p[i].vx * cos + p[i].vy * sin;
+              const vy1 = p[i].vy * cos - p[i].vx * sin;
+              const vx2 = p[j].vx * cos + p[j].vy * sin;
+              const vy2 = p[j].vy * cos - p[j].vx * sin;
+
+              p[i].vx = vx2 * cos - vy1 * sin;
+              p[i].vy = vy1 * cos + vx2 * sin;
+              p[j].vx = vx1 * cos - vy2 * sin;
+              p[j].vy = vy2 * cos + vx1 * sin;
+              
+              const overlap = (minDist - dist) / 2.0;
+              p[i].x -= overlap * cos;
+              p[i].y -= overlap * sin;
+              p[j].x += overlap * cos;
+              p[j].y += overlap * sin;
+            }
+          }
+        }
+        return p;
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
+  }, [particles.length]);
+
   const getIcon = (type: number) => {
-    const props = { size: 60, strokeWidth: 1 };
+    const props = { size: 60, strokeWidth: 1.5 };
     switch (type) {
       case 0: return <Book {...props} />;
       case 1: return <GraduationCap {...props} />;
@@ -133,21 +137,21 @@ const FloatingIcons: React.FC = () => {
     }
   };
 
-  if (!isReady) return <div ref={containerRef} className="absolute inset-0 z-0 opacity-0" />;
-
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden opacity-20 pointer-events-none">
-      {particlesRef.current.map((p) => (
+    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden opacity-30 pointer-events-none">
+      {particles.map((p) => (
         <div
           key={p.id}
-          id={`particle-${p.id}`}
-          className="absolute top-0 left-0 text-brand-gold will-change-transform"
+          className="absolute top-0 left-0 text-brand-gold will-change-transform drop-shadow-lg"
           style={{ 
             width: p.radius * 2, 
             height: p.radius * 2,
+            transform: `translate(${p.x - p.radius}px, ${p.y - p.radius}px) rotate(${p.rotation}deg)`,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            transition: 'opacity 1s ease-in', // Fade in smoothly
+            opacity: 1 // Start visible
           }}
         >
           {getIcon(p.type)}
