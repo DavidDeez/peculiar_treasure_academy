@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Contact: React.FC = () => {
   return (
@@ -41,11 +42,16 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Google Map Link wrapper */}
-            <a 
+            <motion.a 
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.2 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               href="https://maps.app.goo.gl/DDcQXzp6EDwxW8Wo6" 
               target="_blank" 
               rel="noreferrer"
-              className="block w-full h-64 bg-gray-200 rounded-sm overflow-hidden shadow-md group relative"
+              className="block w-full h-64 bg-gray-200 rounded-sm overflow-hidden shadow-lg group relative"
               title="Click to view exact location on Google Maps"
             >
               <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 z-10 transition-colors flex items-center justify-center">
@@ -61,9 +67,9 @@ const Contact: React.FC = () => {
                 allowFullScreen={false} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                className="grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-105"
               ></iframe>
-            </a>
+            </motion.a>
           </div>
 
           {/* Form */}
