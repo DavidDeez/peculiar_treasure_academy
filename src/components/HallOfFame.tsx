@@ -11,10 +11,10 @@ interface HallOfFameStudent {
 }
 
 const defaultResults = [
-  { _id: '1', exam: "JAMB 2023", score: "315", student: "Oluwaseun A.", subject: "Admitted: Medicine & Surgery" },
-  { _id: '2', exam: "WAEC 2023", score: "7 A1s", student: "Chidera N.", subject: "Science Department" },
-  { _id: '3', exam: "JAMB 2022", score: "298", student: "Aisha M.", subject: "Admitted: Law" },
-  { _id: '4', exam: "NECO 2023", score: "8 Distinctions", student: "Daniel K.", subject: "Commercial Department" }
+  { _id: '1', exam: "JAMB UTME", score: "313", student: "Success Goodluck", subject: "Outstanding Performance" },
+  { _id: '2', exam: "JAMB UTME", score: "306", student: "Seun Okunade", subject: "Excellent Performance" },
+  { _id: '3', exam: "JAMB UTME", score: "301", student: "Femi Omidiwura", subject: "Excellent Performance" },
+  { _id: '4', exam: "JAMB UTME", score: "275", student: "Seyi Okunade", subject: "Great Performance" }
 ];
 
 const HallOfFame: React.FC = () => {
