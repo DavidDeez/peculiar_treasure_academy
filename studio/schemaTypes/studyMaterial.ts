@@ -37,12 +37,19 @@ export default {
     },
     {
       name: 'file',
-      title: 'Document or Image File',
+      title: 'Document or Image File (Legacy)',
       type: 'file',
       options: {
         accept: 'application/pdf, image/*',
       },
       description: 'Upload a PDF file or an image (optional)',
+    },
+    {
+      name: 'files',
+      title: 'Attached Files (Multiple)',
+      type: 'array',
+      of: [{ type: 'file', options: { accept: 'application/pdf, image/*' } }],
+      description: 'Upload multiple PDFs or images (optional)',
     },
     {
       name: 'notes',

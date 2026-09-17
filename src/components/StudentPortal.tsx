@@ -17,42 +17,39 @@ interface StudentPortalProps {
   onBack: () => void;
 }
 
-const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
-  const [materials, setMaterials] = useState<StudyMaterial[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedClass, setSelectedClass] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Admin states
+const StudentPortal: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  
-  // Upload / Edit form states
+  const [materials, setMaterials] = useState<StudyMaterial[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedClass, setSelectedClass] = useState('all');
+  const [loading, setLoading] = useState(true);
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
+  
   const [formData, setFormData] = useState({
     title: '',
     classLevel: 'primary-5',
     subject: '',
     notes: '',
   });
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadMessage, setUploadMessage] = useState({ type: '', text: '' });
 
   const classes = [
-    { label: 'All Classes', value: 'all' },
-    { label: 'Primary 5', value: 'primary-5' },
-    { label: 'Primary 6', value: 'primary-6' },
-    { label: 'JSS 1', value: 'jss-1' },
-    { label: 'JSS 2', value: 'jss-2' },
-    { label: 'JSS 3', value: 'jss-3' },
-    { label: 'SSS 1', value: 'sss-1' },
-    { label: 'SSS 2', value: 'sss-2' },
-    { label: 'SSS 3', value: 'sss-3' },
+    { value: 'all', label: 'All Classes' },
+    { value: 'primary-5', label: 'Primary 5' },
+    { value: 'primary-6', label: 'Primary 6' },
+    { value: 'jss-1', label: 'JSS 1' },
+    { value: 'jss-2', label: 'JSS 2' },
+    { value: 'jss-3', label: 'JSS 3' },
+    { value: 'sss-1', label: 'SSS 1' },
+    { value: 'sss-2', label: 'SSS 2' },
+    { value: 'sss-3', label: 'SSS 3' },
   ];
 
   const fetchMaterials = async () => {
@@ -65,6 +62,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
         subject,
         notes,
         "fileUrl": file.asset->url,
+        "fileUrls": files[].asset->url,
         dateAdded
       }`;
       // Bypass CDN to ensure freshly edited notes appear immediately
@@ -146,43 +144,45 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
     setUploadMessage({ type: 'info', text: editingId ? 'Updating note...' : 'Uploading note...' });
 
     try {
-      let fileAssetId = null;
-      
       const writeClient = sanityClient.withConfig({
         token: import.meta.env.VITE_SANITY_WRITE_TOKEN,
         useCdn: false
       });
 
-      // 1. Upload file if exists
-      if (selectedFile) {
-        const isImage = selectedFile.type.startsWith('image/');
-        setUploadMessage({ type: 'info', text: isImage ? 'Optimizing and uploading image...' : 'Uploading PDF...' });
-        const optimizedFile = await compressImage(selectedFile);
+      // 1. Upload files if exist
+      const fileAssets = [];
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i];
+        const isImage = file.type.startsWith('image/');
+        setUploadMessage({ type: 'info', text: `Uploading file ${i + 1} of ${selectedFiles.length} (${isImage ? 'Image' : 'PDF'})...` });
+        const optimizedFile = await compressImage(file);
         
         const asset = await writeClient.assets.upload('file', optimizedFile, {
           filename: optimizedFile.name
         });
-        fileAssetId = asset._id;
+        fileAssets.push({
+          _key: `file-${Date.now()}-${i}`,
+          _type: 'file',
+          asset: {
+            _type: 'reference',
+            _ref: asset._id
+          }
+        });
       }
 
       setUploadMessage({ type: 'info', text: 'Saving study material...' });
       
       // 2. Create or Update document
       const docData: any = {
+        _type: 'studyMaterial',
         title: formData.title,
         classLevel: formData.classLevel,
         subject: formData.subject,
         notes: formData.notes,
       };
 
-      if (fileAssetId) {
-        docData.file = {
-          _type: 'file',
-          asset: {
-            _type: 'reference',
-            _ref: fileAssetId
-          }
-        };
+      if (fileAssets.length > 0) {
+        docData.files = fileAssets;
       }
 
       if (editingId) {
@@ -199,7 +199,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
       
       // Reset form
       setFormData({ title: '', classLevel: 'primary-5', subject: '', notes: '' });
-      setSelectedFile(null);
+      setSelectedFiles([]);
       setEditingId(null);
       
       // Refresh list
@@ -414,12 +414,13 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     {editingId ? 'Replace Attached File (PDF or Image, Optional)' : 'Attach a File (PDF or Image, Optional)'}
                   </label>
-                  <input 
-                    type="file" 
-                    accept="application/pdf, image/*"
-                    onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-dark hover:file:bg-brand-gold/20"
-                  />
+                    <input 
+                      type="file" 
+                      multiple
+                      accept="application/pdf, image/*"
+                      onChange={(e) => setSelectedFiles(e.target.files ? Array.from(e.target.files) : [])}
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-dark hover:file:bg-brand-gold/20"
+                    />
                 </div>
               </div>
 
@@ -539,26 +540,28 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                   </div>
                 )}
                 
-                <div className="mt-auto pt-4 border-t border-gray-50">
-                  {material.fileUrl ? (
-                    <a 
-                      href={`${material.fileUrl}?dl=`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-full py-2.5 bg-brand-gold text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors"
-                    >
-                      {material.fileUrl.match(/\.(jpeg|jpg|gif|png|webp)/i) ? (
-                        <><ImageIcon className="w-4 h-4 mr-2" /> View Image</>
-                      ) : (
-                        <><Download className="w-4 h-4 mr-2" /> Download PDF</>
-                      )}
-                    </a>
-                  ) : (
-                    <div className="flex items-center justify-center w-full py-2.5 bg-gray-100 text-gray-500 rounded-lg font-medium">
-                      <FileText className="w-4 h-4 mr-2" /> Text Note Only
-                    </div>
-                  )}
-                </div>
+                  <div className="mt-auto pt-4 border-t border-gray-50 flex flex-col gap-2">
+                    {(material.fileUrls?.length ? material.fileUrls : material.fileUrl ? [material.fileUrl] : []).map((url, index, arr) => (
+                      <a 
+                        key={index}
+                        href={`${url}?dl=`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-full py-2 bg-brand-gold text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors text-sm"
+                      >
+                        {url.match(/\.(jpeg|jpg|gif|png|webp)/i) ? (
+                          <><ImageIcon className="w-4 h-4 mr-2" /> View Image {arr.length > 1 ? index + 1 : ''}</>
+                        ) : (
+                          <><Download className="w-4 h-4 mr-2" /> Download PDF {arr.length > 1 ? index + 1 : ''}</>
+                        )}
+                      </a>
+                    ))}
+                    {!material.fileUrl && (!material.fileUrls || material.fileUrls.length === 0) && (
+                      <div className="flex items-center justify-center w-full py-2 bg-gray-100 text-gray-500 rounded-lg font-medium text-sm">
+                        <FileText className="w-4 h-4 mr-2" /> Text Note Only
+                      </div>
+                    )}
+                  </div>
               </motion.div>
             ))}
           </div>
