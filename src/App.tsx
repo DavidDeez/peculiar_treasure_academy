@@ -20,10 +20,11 @@ function App() {
 
   if (showPortal) {
     return (
-      <>
+      <div className="min-h-screen bg-[#faf9f6]">
         <CustomCursor />
+        <FloatingIcons />
         <StudentPortal onBack={() => setShowPortal(false)} />
-      </>
+      </div>
     );
   }
 

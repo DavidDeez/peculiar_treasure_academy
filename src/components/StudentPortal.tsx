@@ -222,7 +222,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
   });
 
   return (
-    <div className="min-h-screen bg-[#faf9f6] flex flex-col relative z-[60]">
+    <div className="flex flex-col relative z-10 min-h-screen">
       <div className="bg-brand-dark text-white py-4 px-4 md:px-12 shadow-lg relative flex items-center justify-between">
         <div className="flex-1 flex justify-start z-10">
           <button 
