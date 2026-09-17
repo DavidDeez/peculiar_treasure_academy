@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenPortal?: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenPortal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [logoOpen, setLogoOpen] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -85,7 +89,11 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex items-center space-x-10">
               <a href="#about" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">Philosophy</a>
               <a href="#courses" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">Academics</a>
-              <a href="#features" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">The Experience</a>
+              {onOpenPortal && (
+                <button onClick={onOpenPortal} className="text-sm tracking-wide text-brand-gold hover:text-yellow-600 transition-colors uppercase font-bold flex items-center">
+                  Student Portal
+                </button>
+              )}
               <a href="#contact" className="bg-brand-dark text-white px-6 py-2.5 text-sm uppercase tracking-wider font-medium hover:bg-gray-800 transition-colors">
                 Admissions
               </a>
@@ -107,6 +115,9 @@ const Navbar: React.FC = () => {
               <a href="#about" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">Philosophy</a>
               <a href="#courses" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">Academics</a>
               <a href="#features" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">The Experience</a>
+              {onOpenPortal && (
+                <button onClick={() => { toggleMenu(); onOpenPortal(); }} className="block w-full text-left text-brand-gold text-lg font-serif font-bold">Student Portal</button>
+              )}
               <a href="#contact" onClick={toggleMenu} className="block text-brand-gold text-lg font-serif italic">Admissions</a>
             </div>
           </div>

@@ -1,3 +1,4 @@
 import hallOfFameStudent from './hallOfFameStudent'
+import studyMaterial from './studyMaterial'
 
-export const schemaTypes = [hallOfFameStudent]
+export const schemaTypes = [hallOfFameStudent, studyMaterial]

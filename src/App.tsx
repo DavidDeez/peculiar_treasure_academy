@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Countdown from './components/Countdown';
@@ -12,13 +13,25 @@ import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import CustomCursor from './components/CustomCursor';
 import FloatingIcons from './components/FloatingIcons';
+import StudentPortal from './components/StudentPortal';
 
 function App() {
+  const [showPortal, setShowPortal] = useState(false);
+
+  if (showPortal) {
+    return (
+      <>
+        <CustomCursor />
+        <StudentPortal onBack={() => setShowPortal(false)} />
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#faf9f6]">
       <CustomCursor />
       <FloatingIcons />
-      <Navbar />
+      <Navbar onOpenPortal={() => setShowPortal(true)} />
       <main className="flex-grow">
         <Hero />
         <Countdown />
