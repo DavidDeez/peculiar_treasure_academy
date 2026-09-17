@@ -37,12 +37,12 @@ export default {
     },
     {
       name: 'file',
-      title: 'PDF Document / File',
+      title: 'Document or Image File',
       type: 'file',
       options: {
-        accept: 'application/pdf',
+        accept: 'application/pdf, image/*',
       },
-      description: 'Upload a PDF file (optional if you are just typing notes)',
+      description: 'Upload a PDF file or an image (optional)',
     },
     {
       name: 'notes',
