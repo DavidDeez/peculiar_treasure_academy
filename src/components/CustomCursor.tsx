@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { MousePointer2 } from 'lucide-react';
 
 const CustomCursor: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
@@ -62,28 +63,21 @@ const CustomCursor: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-brand-gold pointer-events-none z-[9999]"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          scale: isHovering ? 2 : 1,
-          opacity: isVisible ? 1 : 0,
-          backgroundColor: isHovering ? 'rgba(212, 175, 55, 0.2)' : 'transparent',
-        }}
-        transition={{ type: 'spring', stiffness: 500, damping: 28, mass: 0.5 }}
+    <motion.div
+      className="fixed top-0 left-0 pointer-events-none z-[9999]"
+      animate={{
+        x: mousePosition.x - 2, // slight offset to align the tip
+        y: mousePosition.y - 2,
+        scale: isHovering ? 1.2 : 1,
+        opacity: isVisible ? 1 : 0,
+      }}
+      transition={{ type: 'spring', stiffness: 1000, damping: 40, mass: 0.1 }}
+    >
+      <MousePointer2 
+        className="w-4 h-4 text-brand-dark fill-brand-gold drop-shadow-md" 
+        strokeWidth={2}
       />
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-brand-gold rounded-full pointer-events-none z-[9999]"
-        animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ type: 'spring', stiffness: 1000, damping: 40, mass: 0.1 }}
-      />
-    </>
+    </motion.div>
   );
 };
 

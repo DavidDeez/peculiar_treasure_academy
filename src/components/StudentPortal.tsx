@@ -345,9 +345,19 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Text Notes</label>
+                  <textarea 
+                    rows={4}
+                    placeholder="Type study notes or instructions here..."
+                    value={formData.notes}
+                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none"
+                  ></textarea>
+                </div>
+                <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {editingId ? 'Replace File (PDF or Image)' : 'Upload File (PDF or Image, Optional)'}
+                    {editingId ? 'Replace Attached File (PDF or Image, Optional)' : 'Attach a File (PDF or Image, Optional)'}
                   </label>
                   <input 
                     type="file" 
@@ -355,16 +365,6 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                     onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
                     className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-dark hover:file:bg-brand-gold/20"
                   />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Additional Text Notes (Optional)</label>
-                  <textarea 
-                    rows={4}
-                    placeholder="Type notes here if you don't have a PDF to upload..."
-                    value={formData.notes}
-                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none"
-                  ></textarea>
                 </div>
               </div>
 
