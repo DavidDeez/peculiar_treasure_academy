@@ -34,6 +34,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     classLevel: 'primary-5',
@@ -465,8 +466,22 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                 <h4 className="text-md text-gray-600 mb-4">{material.title}</h4>
                 
                 {material.notes && (
-                  <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg mb-4 whitespace-pre-wrap italic">
+                  <div 
+                    onClick={() => setExpandedNoteId(expandedNoteId === material._id ? null : material._id)}
+                    className={`text-sm text-gray-500 bg-gray-50 p-3 rounded-lg mb-4 whitespace-pre-wrap italic cursor-pointer hover:bg-gray-100 transition-all duration-300 ${expandedNoteId === material._id ? '' : 'line-clamp-3'}`}
+                    title="Click to expand/collapse"
+                  >
                     "{material.notes}"
+                  </div>
+                )}
+                {material.notes && material.notes.length > 120 && expandedNoteId !== material._id && (
+                  <div className="text-center -mt-3 mb-4">
+                    <button 
+                      onClick={() => setExpandedNoteId(material._id)}
+                      className="text-[10px] text-brand-gold font-bold uppercase tracking-wider bg-yellow-50 px-2 py-0.5 rounded-full"
+                    >
+                      Read More
+                    </button>
                   </div>
                 )}
                 
