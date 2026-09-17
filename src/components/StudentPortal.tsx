@@ -223,28 +223,37 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#faf9f6] flex flex-col relative z-[60]">
-      <div className="bg-brand-dark text-white py-4 px-6 md:px-12 flex items-center justify-between shadow-lg">
-        <button onClick={onBack} className="flex items-center text-sm font-medium hover:text-brand-gold transition-colors">
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Website
-        </button>
-        <div className="flex items-center font-serif text-xl font-bold">
-          <BookOpen className="w-6 h-6 text-brand-gold mr-2" />
-          Student Portal
+      <div className="bg-brand-dark text-white py-4 px-4 md:px-12 shadow-lg relative flex items-center justify-between">
+        <div className="flex-1 flex justify-start z-10">
+          <button 
+            onClick={onBack} 
+            className="flex items-center text-xs md:text-sm font-medium hover:text-white text-gray-300 transition-colors bg-white/5 hover:bg-white/10 px-3 py-2 rounded-full border border-white/10"
+          >
+            <ArrowLeft className="w-4 h-4 md:mr-2" /> 
+            <span className="hidden md:inline">Back to Website</span>
+            <span className="md:hidden ml-1">Back</span>
+          </button>
         </div>
-        <div>
+        
+        <div className="flex items-center justify-center font-serif text-lg md:text-xl font-bold absolute left-1/2 transform -translate-x-1/2 w-max">
+          <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-brand-gold mr-2 hidden sm:block" />
+          <span className="text-brand-gold mr-1 md:hidden">P.T.A.</span> Portal
+        </div>
+        
+        <div className="flex-1 flex justify-end z-10">
           {!isAdmin ? (
             <button 
               onClick={() => setShowLogin(true)} 
-              className="text-xs md:text-sm font-medium text-gray-300 hover:text-white flex items-center"
+              className="text-[11px] md:text-sm font-bold text-brand-dark bg-brand-gold hover:bg-yellow-500 px-3 md:px-4 py-2 rounded-full flex items-center shadow-md transition-colors"
             >
-              <Lock className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" /> Teacher Login
+              <Lock className="w-3 h-3 md:w-4 md:h-4 mr-1.5" /> Login
             </button>
           ) : (
             <button 
               onClick={() => setIsAdmin(false)} 
-              className="text-xs md:text-sm font-medium text-brand-gold hover:text-white"
+              className="text-[11px] md:text-sm font-bold text-white border border-red-500/50 bg-red-500/20 hover:bg-red-500/40 px-3 md:px-4 py-2 rounded-full transition-colors"
             >
-              Log Out
+              Logout
             </button>
           )}
         </div>
