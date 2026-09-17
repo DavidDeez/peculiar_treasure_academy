@@ -353,14 +353,14 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
             />
           </div>
           
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="grid grid-cols-3 md:flex md:flex-wrap gap-1.5 md:gap-2 md:justify-center">
             {classes.map(c => (
               <button
                 key={c.value}
                 onClick={() => setSelectedClass(c.value)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-1.5 py-1.5 md:px-4 md:py-2 rounded-lg md:rounded-full text-[10px] md:text-sm font-bold md:font-medium transition-colors text-center ${
                   selectedClass === c.value 
-                    ? 'bg-brand-dark text-white shadow-md' 
+                    ? 'bg-brand-dark text-white shadow-sm md:shadow-md' 
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
