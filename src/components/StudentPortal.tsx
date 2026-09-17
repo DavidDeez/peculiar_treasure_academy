@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X, Trash2 } from 'lucide-react';
+import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X, Trash2, Edit } from 'lucide-react';
 import { sanityClient } from '../sanityClient';
 import { motion } from 'framer-motion';
 import Footer from './Footer';
@@ -30,9 +30,10 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   
-  // Upload form states
+  // Upload / Edit form states
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     classLevel: 'primary-5',
@@ -99,13 +100,11 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
     }
     
     setIsUploading(true);
-    setUploadMessage({ type: 'info', text: 'Uploading note...' });
+    setUploadMessage({ type: 'info', text: editingId ? 'Updating note...' : 'Uploading note...' });
 
     try {
       let fileAssetId = null;
       
-      // We must create a dedicated write client since the default client has useCdn: true which blocks mutations
-      // In a real app, the token would be strictly kept secret
       const writeClient = sanityClient.withConfig({
         token: import.meta.env.VITE_SANITY_WRITE_TOKEN,
         useCdn: false
@@ -122,32 +121,40 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
 
       setUploadMessage({ type: 'info', text: 'Saving study material...' });
       
-      // 2. Create document
-      const doc = {
-        _type: 'studyMaterial',
+      // 2. Create or Update document
+      const docData: any = {
         title: formData.title,
         classLevel: formData.classLevel,
         subject: formData.subject,
         notes: formData.notes,
-        dateAdded: new Date().toISOString().split('T')[0],
-        ...(fileAssetId && {
-          file: {
-            _type: 'file',
-            asset: {
-              _type: 'reference',
-              _ref: fileAssetId
-            }
-          }
-        })
       };
 
-      await writeClient.create(doc);
-      
-      setUploadMessage({ type: 'success', text: 'Note uploaded successfully!' });
+      if (fileAssetId) {
+        docData.file = {
+          _type: 'file',
+          asset: {
+            _type: 'reference',
+            _ref: fileAssetId
+          }
+        };
+      }
+
+      if (editingId) {
+        await writeClient.patch(editingId).set(docData).commit();
+        setUploadMessage({ type: 'success', text: 'Note updated successfully!' });
+      } else {
+        await writeClient.create({
+          _type: 'studyMaterial',
+          dateAdded: new Date().toISOString().split('T')[0],
+          ...docData
+        });
+        setUploadMessage({ type: 'success', text: 'Note uploaded successfully!' });
+      }
       
       // Reset form
       setFormData({ title: '', classLevel: 'primary-5', subject: '', notes: '' });
       setSelectedFile(null);
+      setEditingId(null);
       
       // Refresh list
       setTimeout(() => {
@@ -161,11 +168,31 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
       if (error.message && error.message.includes("Mutation")) {
          setUploadMessage({ type: 'error', text: 'Write token is missing. Please add VITE_SANITY_WRITE_TOKEN to your .env file.' });
       } else {
-         setUploadMessage({ type: 'error', text: 'Failed to upload. Check console for details.' });
+         setUploadMessage({ type: 'error', text: 'Failed to save. Check console for details.' });
       }
     } finally {
       setIsUploading(false);
     }
+  };
+
+  const handleEditClick = (material: StudyMaterial) => {
+    setFormData({
+      title: material.title,
+      classLevel: material.classLevel,
+      subject: material.subject,
+      notes: material.notes || '',
+    });
+    setEditingId(material._id);
+    setShowUploadForm(true);
+    setUploadMessage({ type: '', text: '' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const cancelEdit = () => {
+    setFormData({ title: '', classLevel: 'primary-5', subject: '', notes: '' });
+    setEditingId(null);
+    setShowUploadForm(false);
+    setUploadMessage({ type: '', text: '' });
   };
 
   const handleDelete = async (id: string) => {
@@ -256,11 +283,14 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
           
           {isAdmin && (
             <button 
-              onClick={() => setShowUploadForm(!showUploadForm)}
+              onClick={() => {
+                if (editingId) cancelEdit();
+                else setShowUploadForm(!showUploadForm);
+              }}
               className="mt-6 mx-auto flex items-center px-6 py-3 bg-brand-gold text-white rounded-full font-bold shadow-lg hover:bg-yellow-600 transition-all transform hover:scale-105"
             >
               {showUploadForm ? <X className="w-5 h-5 mr-2" /> : <Plus className="w-5 h-5 mr-2" />}
-              {showUploadForm ? 'Cancel Upload' : 'Upload New Note'}
+              {showUploadForm ? (editingId ? 'Cancel Edit' : 'Cancel Upload') : 'Upload New Note'}
             </button>
           )}
         </div>
@@ -274,7 +304,8 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
           >
             <div className="p-6 md:p-8 bg-brand-dark text-white">
               <h2 className="text-2xl font-bold font-serif flex items-center">
-                <Upload className="w-6 h-6 mr-3 text-brand-gold" /> Upload Study Material
+                {editingId ? <Edit className="w-6 h-6 mr-3 text-brand-gold" /> : <Upload className="w-6 h-6 mr-3 text-brand-gold" />} 
+                {editingId ? 'Edit Study Material' : 'Upload Study Material'}
               </h2>
             </div>
             
@@ -315,7 +346,9 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">PDF Document (Optional)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {editingId ? 'Replace PDF Document (Optional)' : 'PDF Document (Optional)'}
+                  </label>
                   <input 
                     type="file" 
                     accept="application/pdf"
@@ -347,9 +380,9 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                 className={`w-full md:w-auto px-8 py-3 rounded-lg font-bold text-white flex items-center justify-center transition-colors ${isUploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-brand-dark hover:bg-gray-800'}`}
               >
                 {isUploading ? (
-                  <><div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div> Uploading...</>
+                  <><div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div> {editingId ? 'Updating...' : 'Uploading...'}</>
                 ) : (
-                  <><Upload className="w-5 h-5 mr-2" /> Publish Note</>
+                  <><Upload className="w-5 h-5 mr-2" /> {editingId ? 'Save Changes' : 'Publish Note'}</>
                 )}
               </button>
             </form>
@@ -408,13 +441,22 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                   <div className="flex flex-col items-end gap-2">
                     <span className="text-gray-400 text-xs">{new Date(material.dateAdded).toLocaleDateString()}</span>
                     {isAdmin && (
-                      <button 
-                        onClick={() => handleDelete(material._id)} 
-                        className="text-red-500 hover:text-red-700 text-[10px] font-bold bg-red-50 hover:bg-red-100 px-2 py-1 rounded transition-colors flex items-center"
-                        title="Delete Material"
-                      >
-                        <Trash2 className="w-3 h-3 mr-1" /> Delete
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button 
+                          onClick={() => handleEditClick(material)} 
+                          className="text-blue-500 hover:text-blue-700 text-[10px] font-bold bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded transition-colors flex items-center"
+                          title="Edit Material"
+                        >
+                          <Edit className="w-3 h-3 mr-1" /> Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(material._id)} 
+                          className="text-red-500 hover:text-red-700 text-[10px] font-bold bg-red-50 hover:bg-red-100 px-2 py-1 rounded transition-colors flex items-center"
+                          title="Delete Material"
+                        >
+                          <Trash2 className="w-3 h-3 mr-1" /> Delete
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>
