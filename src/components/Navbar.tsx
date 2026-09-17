@@ -100,21 +100,25 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPortal }) => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center gap-2">
-              {onOpenPortal && (
-                <button 
-                  onClick={onOpenPortal} 
-                  className="text-[10px] font-bold text-white bg-brand-gold px-2 py-1.5 rounded uppercase tracking-wider whitespace-nowrap"
-                >
-                  Teacher/Student Portal
-                </button>
-              )}
-              <button onClick={toggleMenu} className="text-brand-dark p-1">
+            <div className="md:hidden flex items-center">
+              <button onClick={toggleMenu} className="text-brand-dark p-2">
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Portal Banner */}
+        {onOpenPortal && (
+          <div className="md:hidden bg-brand-gold w-full border-t border-yellow-600/20">
+            <button 
+              onClick={onOpenPortal} 
+              className="w-full text-center py-2 text-[11px] font-bold text-white uppercase tracking-widest active:bg-yellow-600 transition-colors"
+            >
+              Teacher / Student Portal
+            </button>
+          </div>
+        )}
 
         {/* Mobile Menu */}
         {isOpen && (
