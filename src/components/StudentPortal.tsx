@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X, Trash2, Edit } from 'lucide-react';
+import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X, Trash2, Edit, Image as ImageIcon } from 'lucide-react';
 import { sanityClient } from '../sanityClient';
 import { motion } from 'framer-motion';
 
@@ -155,7 +155,8 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
 
       // 1. Upload file if exists
       if (selectedFile) {
-        setUploadMessage({ type: 'info', text: 'Optimizing and uploading file...' });
+        const isImage = selectedFile.type.startsWith('image/');
+        setUploadMessage({ type: 'info', text: isImage ? 'Optimizing and uploading image...' : 'Uploading PDF...' });
         const optimizedFile = await compressImage(selectedFile);
         
         const asset = await writeClient.assets.upload('file', optimizedFile, {
@@ -541,12 +542,16 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                 <div className="mt-auto pt-4 border-t border-gray-50">
                   {material.fileUrl ? (
                     <a 
-                      href={material.fileUrl} 
+                      href={`${material.fileUrl}?dl=`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="flex items-center justify-center w-full py-2.5 bg-brand-gold text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors"
                     >
-                      <Download className="w-4 h-4 mr-2" /> Download / View File
+                      {material.fileUrl.match(/\.(jpeg|jpg|gif|png|webp)/i) ? (
+                        <><ImageIcon className="w-4 h-4 mr-2" /> View Image</>
+                      ) : (
+                        <><Download className="w-4 h-4 mr-2" /> Download PDF</>
+                      )}
                     </a>
                   ) : (
                     <div className="flex items-center justify-center w-full py-2.5 bg-gray-100 text-gray-500 rounded-lg font-medium">
