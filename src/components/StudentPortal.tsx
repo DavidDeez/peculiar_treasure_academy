@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X, Trash2, Edit } from 'lucide-react';
 import { sanityClient } from '../sanityClient';
 import { motion } from 'framer-motion';
-import Footer from './Footer';
 
 interface StudyMaterial {
   _id: string;
@@ -523,7 +522,6 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 };
