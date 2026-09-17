@@ -414,13 +414,12 @@ const StudentPortal: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     {editingId ? 'Replace Attached File (PDF or Image, Optional)' : 'Attach a File (PDF or Image, Optional)'}
                   </label>
-                    <input 
-                      type="file" 
-                      multiple
-                      accept="application/pdf, image/*"
-                      onChange={(e) => setSelectedFiles(e.target.files ? Array.from(e.target.files) : [])}
-                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-dark hover:file:bg-brand-gold/20"
-                    />
+                      <input 
+                        type="file" 
+                        multiple
+                        onChange={(e) => setSelectedFiles(e.target.files ? Array.from(e.target.files) : [])}
+                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-dark hover:file:bg-brand-gold/20"
+                      />
                 </div>
               </div>
 
