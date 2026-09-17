@@ -341,8 +341,8 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
         )}
 
         {/* Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-          <div className="relative flex-grow">
+        <div className="flex flex-col gap-4 mb-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+          <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input 
               type="text" 
@@ -352,15 +352,22 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
               className="w-full pl-10 pr-4 py-3 bg-gray-50 border-none rounded-lg focus:ring-2 focus:ring-brand-gold focus:bg-white transition-all outline-none"
             />
           </div>
-          <select 
-            value={selectedClass}
-            onChange={(e) => setSelectedClass(e.target.value)}
-            className="py-3 px-4 bg-gray-50 border-none rounded-lg focus:ring-2 focus:ring-brand-gold outline-none min-w-[180px] cursor-pointer"
-          >
+          
+          <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
             {classes.map(c => (
-              <option key={c.value} value={c.value}>{c.label}</option>
+              <button
+                key={c.value}
+                onClick={() => setSelectedClass(c.value)}
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  selectedClass === c.value 
+                    ? 'bg-brand-dark text-white' 
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {c.label}
+              </button>
             ))}
-          </select>
+          </div>
         </div>
 
         {/* Results */}
