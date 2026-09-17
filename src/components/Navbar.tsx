@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, BookOpen, ChevronRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenPortal?: () => void;
@@ -86,15 +86,20 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPortal }) => {
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-10">
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-10">
               <a href="#about" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">Philosophy</a>
               <a href="#courses" className="text-sm tracking-wide text-gray-600 hover:text-brand-gold transition-colors uppercase font-medium">Academics</a>
               {onOpenPortal && (
-                <button onClick={onOpenPortal} className="text-sm tracking-wide text-brand-gold hover:text-yellow-600 transition-colors uppercase font-bold flex items-center">
-                  Teacher/Student Portal
+                <button 
+                  onClick={onOpenPortal} 
+                  className="group relative px-4 py-2.5 bg-brand-gold/10 text-[13px] tracking-wider text-brand-gold hover:text-white hover:bg-brand-gold transition-all duration-300 uppercase font-bold flex items-center rounded-lg border border-brand-gold/30 hover:shadow-md"
+                >
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Access Portal
+                  <ChevronRight className="w-4 h-4 ml-1 opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </button>
               )}
-              <a href="#contact" className="bg-brand-dark text-white px-6 py-2.5 text-sm uppercase tracking-wider font-medium hover:bg-gray-800 transition-colors">
+              <a href="#contact" className="bg-brand-dark text-white px-6 py-2.5 text-sm uppercase tracking-wider font-medium hover:bg-gray-800 transition-colors rounded">
                 Admissions
               </a>
             </div>
@@ -110,12 +115,14 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPortal }) => {
 
         {/* Mobile Portal Banner */}
         {onOpenPortal && (
-          <div className="md:hidden bg-brand-gold w-full border-t border-yellow-600/20">
+          <div className="md:hidden bg-gradient-to-r from-brand-gold to-yellow-600 w-full shadow-md relative overflow-hidden">
             <button 
               onClick={onOpenPortal} 
-              className="w-full text-center py-2 text-[11px] font-bold text-white uppercase tracking-widest active:bg-yellow-600 transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 text-[12px] font-bold text-white uppercase tracking-widest active:bg-black/10 transition-colors relative z-10"
             >
-              Teacher / Student Portal
+              <BookOpen className="w-4 h-4 animate-bounce" style={{ animationDuration: '2s' }} />
+              <span>Tap to Access Portal</span>
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -127,9 +134,6 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPortal }) => {
               <a href="#about" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">Philosophy</a>
               <a href="#courses" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">Academics</a>
               <a href="#features" onClick={toggleMenu} className="block text-gray-800 text-lg font-serif">The Experience</a>
-              {onOpenPortal && (
-                <button onClick={() => { toggleMenu(); onOpenPortal(); }} className="block w-full text-left text-brand-gold text-lg font-serif font-bold">Teacher/Student Portal</button>
-              )}
               <a href="#contact" onClick={toggleMenu} className="block text-brand-gold text-lg font-serif italic">Admissions</a>
             </div>
           </div>
