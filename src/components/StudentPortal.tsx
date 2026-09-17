@@ -68,8 +68,10 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
         "fileUrl": file.asset->url,
         dateAdded
       }`;
-      const data = await sanityClient.fetch(query);
-      setMaterials(data || []);
+      // Bypass CDN to ensure freshly edited notes appear immediately
+      const readClient = sanityClient.withConfig({ useCdn: false });
+      const data = await readClient.fetch(query);
+      setMaterials(data);
     } catch (error) {
       console.error("Failed to fetch study materials:", error);
     } finally {
