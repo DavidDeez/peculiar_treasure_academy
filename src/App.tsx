@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Countdown from './components/Countdown';
@@ -16,14 +16,34 @@ import FloatingIcons from './components/FloatingIcons';
 import StudentPortal from './components/StudentPortal';
 
 function App() {
-  const [showPortal, setShowPortal] = useState(false);
+  const [showPortal, setShowPortal] = useState(() => window.location.hash === '#portal');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setShowPortal(window.location.hash === '#portal');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleOpenPortal = () => {
+    window.location.hash = 'portal';
+  };
+
+  const handleClosePortal = () => {
+    if (window.history.length > 2) {
+      window.history.back();
+    } else {
+      window.location.hash = '';
+    }
+  };
 
   if (showPortal) {
     return (
       <div className="min-h-screen bg-[#faf9f6]">
         <CustomCursor />
         <FloatingIcons />
-        <StudentPortal onBack={() => setShowPortal(false)} />
+        <StudentPortal onBack={handleClosePortal} />
       </div>
     );
   }
@@ -32,7 +52,7 @@ function App() {
     <div className="min-h-screen bg-[#faf9f6]">
       <CustomCursor />
       <FloatingIcons />
-      <Navbar onOpenPortal={() => setShowPortal(true)} />
+      <Navbar onOpenPortal={handleOpenPortal} />
       <main className="flex-grow">
         <Hero />
         <Countdown />
