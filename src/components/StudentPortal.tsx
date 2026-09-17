@@ -236,8 +236,8 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
         </div>
         
         <div className="flex items-center justify-center font-serif text-lg md:text-xl font-bold absolute left-1/2 transform -translate-x-1/2 w-max">
-          <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-brand-gold mr-2 hidden sm:block" />
-          <span className="text-brand-gold mr-1 md:hidden">P.T.A.</span> Portal
+          <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-brand-gold mr-2" />
+          <span className="hidden md:inline">Student&nbsp;</span>Portal
         </div>
         
         <div className="flex-1 flex justify-end z-10">
