@@ -20,15 +20,6 @@
     font-family: var(--font-sans);
     color: #334155;
     -webkit-font-smoothing: antialiased;
-    cursor: none;
-  }
-  
-  a, button, [role="button"] {
-    cursor: none;
-  }
-
-  input, textarea {
-    cursor: text;
   }
 
   h1, h2, h3, h4, h5, h6 {
