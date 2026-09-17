@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { BookOpen, Search, Download, ArrowLeft, FileText } from 'lucide-react';
 import { sanityClient } from '../sanityClient';
 import { motion } from 'framer-motion';
-import Navbar from './Navbar';
 import Footer from './Footer';
 
 interface StudyMaterial {
