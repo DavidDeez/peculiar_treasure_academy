@@ -435,7 +435,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
                 key={material._id}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group flex flex-col h-full"
+                className={`bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group flex flex-col h-full ${expandedNoteId === material._id ? 'md:col-span-2 lg:col-span-3' : ''}`}
               >
                 <div className="flex justify-between items-start mb-4">
                   <span className="bg-brand-gold/10 text-brand-dark px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
