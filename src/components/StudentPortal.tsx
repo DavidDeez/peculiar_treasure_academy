@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BookOpen, Search, Download, ArrowLeft, FileText } from 'lucide-react';
+import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X } from 'lucide-react';
 import { sanityClient } from '../sanityClient';
 import { motion } from 'framer-motion';
 import Footer from './Footer';
@@ -24,6 +24,24 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
   const [selectedClass, setSelectedClass] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Admin states
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  
+  // Upload form states
+  const [showUploadForm, setShowUploadForm] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    classLevel: 'primary-5',
+    subject: '',
+    notes: '',
+  });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadMessage, setUploadMessage] = useState({ type: '', text: '' });
+
   const classes = [
     { label: 'All Classes', value: 'all' },
     { label: 'Primary 5', value: 'primary-5' },
@@ -36,28 +54,119 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
     { label: 'SSS 3', value: 'sss-3' },
   ];
 
+  const fetchMaterials = async () => {
+    setLoading(true);
+    try {
+      const query = `*[_type == "studyMaterial"] | order(dateAdded desc) {
+        _id,
+        title,
+        classLevel,
+        subject,
+        notes,
+        "fileUrl": file.asset->url,
+        dateAdded
+      }`;
+      const data = await sanityClient.fetch(query);
+      setMaterials(data || []);
+    } catch (error) {
+      console.error("Failed to fetch study materials:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchMaterials = async () => {
-      try {
-        const query = `*[_type == "studyMaterial"] | order(dateAdded desc) {
-          _id,
-          title,
-          classLevel,
-          subject,
-          notes,
-          "fileUrl": file.asset->url,
-          dateAdded
-        }`;
-        const data = await sanityClient.fetch(query);
-        setMaterials(data || []);
-      } catch (error) {
-        console.error("Failed to fetch study materials:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchMaterials();
   }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === 'admin') {
+      setIsAdmin(true);
+      setShowLogin(false);
+      setLoginError('');
+      setPassword('');
+    } else {
+      setLoginError('Incorrect password');
+    }
+  };
+
+  const handleUpload = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.title || !formData.subject) {
+      setUploadMessage({ type: 'error', text: 'Title and Subject are required.' });
+      return;
+    }
+    
+    setIsUploading(true);
+    setUploadMessage({ type: 'info', text: 'Uploading note...' });
+
+    try {
+      let fileAssetId = null;
+      
+      // We must create a dedicated write client since the default client has useCdn: true which blocks mutations
+      // In a real app, the token would be strictly kept secret
+      const writeClient = sanityClient.withConfig({
+        token: import.meta.env.VITE_SANITY_WRITE_TOKEN,
+        useCdn: false
+      });
+
+      // 1. Upload file if exists
+      if (selectedFile) {
+        setUploadMessage({ type: 'info', text: 'Uploading PDF document...' });
+        const asset = await writeClient.assets.upload('file', selectedFile, {
+          filename: selectedFile.name
+        });
+        fileAssetId = asset._id;
+      }
+
+      setUploadMessage({ type: 'info', text: 'Saving study material...' });
+      
+      // 2. Create document
+      const doc = {
+        _type: 'studyMaterial',
+        title: formData.title,
+        classLevel: formData.classLevel,
+        subject: formData.subject,
+        notes: formData.notes,
+        dateAdded: new Date().toISOString().split('T')[0],
+        ...(fileAssetId && {
+          file: {
+            _type: 'file',
+            asset: {
+              _type: 'reference',
+              _ref: fileAssetId
+            }
+          }
+        })
+      };
+
+      await writeClient.create(doc);
+      
+      setUploadMessage({ type: 'success', text: 'Note uploaded successfully!' });
+      
+      // Reset form
+      setFormData({ title: '', classLevel: 'primary-5', subject: '', notes: '' });
+      setSelectedFile(null);
+      
+      // Refresh list
+      setTimeout(() => {
+        setShowUploadForm(false);
+        setUploadMessage({ type: '', text: '' });
+        fetchMaterials();
+      }, 1500);
+
+    } catch (error: any) {
+      console.error("Upload failed:", error);
+      if (error.message && error.message.includes("Mutation")) {
+         setUploadMessage({ type: 'error', text: 'Write token is missing. Please add VITE_SANITY_WRITE_TOKEN to your .env file.' });
+      } else {
+         setUploadMessage({ type: 'error', text: 'Failed to upload. Check console for details.' });
+      }
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const filteredMaterials = materials.filter(material => {
     const matchesClass = selectedClass === 'all' || material.classLevel === selectedClass;
@@ -76,14 +185,160 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
           <BookOpen className="w-6 h-6 text-brand-gold mr-2" />
           Student Portal
         </div>
-        <div className="w-24"></div> {/* Spacer for alignment */}
+        <div>
+          {!isAdmin ? (
+            <button 
+              onClick={() => setShowLogin(true)} 
+              className="text-xs md:text-sm font-medium text-gray-300 hover:text-white flex items-center"
+            >
+              <Lock className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" /> Teacher Login
+            </button>
+          ) : (
+            <button 
+              onClick={() => setIsAdmin(false)} 
+              className="text-xs md:text-sm font-medium text-brand-gold hover:text-white"
+            >
+              Log Out
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
+        
+        {/* Admin Login Modal */}
+        {showLogin && (
+          <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+              <button onClick={() => setShowLogin(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <X className="w-6 h-6" />
+              </button>
+              <h2 className="text-2xl font-bold font-serif mb-2">Teacher Login</h2>
+              <p className="text-gray-500 mb-6 text-sm">Enter the admin password to upload notes.</p>
+              
+              <form onSubmit={handleLogin}>
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none mb-4"
+                  autoFocus
+                />
+                {loginError && <p className="text-red-500 text-sm mb-4">{loginError}</p>}
+                <button type="submit" className="w-full py-3 bg-brand-dark text-white rounded-lg font-bold hover:bg-gray-800 transition-colors">
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-5xl font-bold text-brand-dark font-serif mb-4">Study <span className="italic font-light text-brand-gold">Materials.</span></h1>
           <p className="text-gray-600 max-w-2xl mx-auto">Download notes and study guides uploaded by your teachers.</p>
+          
+          {isAdmin && (
+            <button 
+              onClick={() => setShowUploadForm(!showUploadForm)}
+              className="mt-6 mx-auto flex items-center px-6 py-3 bg-brand-gold text-white rounded-full font-bold shadow-lg hover:bg-yellow-600 transition-all transform hover:scale-105"
+            >
+              {showUploadForm ? <X className="w-5 h-5 mr-2" /> : <Plus className="w-5 h-5 mr-2" />}
+              {showUploadForm ? 'Cancel Upload' : 'Upload New Note'}
+            </button>
+          )}
         </div>
+
+        {/* Upload Form */}
+        {isAdmin && showUploadForm && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="mb-12 bg-white rounded-2xl shadow-xl border border-brand-gold/20 overflow-hidden"
+          >
+            <div className="p-6 md:p-8 bg-brand-dark text-white">
+              <h2 className="text-2xl font-bold font-serif flex items-center">
+                <Upload className="w-6 h-6 mr-3 text-brand-gold" /> Upload Study Material
+              </h2>
+            </div>
+            
+            <form onSubmit={handleUpload} className="p-6 md:p-8 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title <span className="text-red-500">*</span></label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="e.g. Week 1: Introduction to Algebra"
+                    value={formData.title}
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Subject <span className="text-red-500">*</span></label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="e.g. Mathematics"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Class Level <span className="text-red-500">*</span></label>
+                  <select 
+                    value={formData.classLevel}
+                    onChange={(e) => setFormData({...formData, classLevel: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none"
+                  >
+                    {classes.filter(c => c.value !== 'all').map(c => (
+                      <option key={c.value} value={c.value}>{c.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">PDF Document (Optional)</label>
+                  <input 
+                    type="file" 
+                    accept="application/pdf"
+                    onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-gold/10 file:text-brand-dark hover:file:bg-brand-gold/20"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Additional Text Notes (Optional)</label>
+                  <textarea 
+                    rows={4}
+                    placeholder="Type notes here if you don't have a PDF to upload..."
+                    value={formData.notes}
+                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-gold outline-none"
+                  ></textarea>
+                </div>
+              </div>
+
+              {uploadMessage.text && (
+                <div className={`p-4 rounded-lg ${uploadMessage.type === 'error' ? 'bg-red-50 text-red-700' : uploadMessage.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-blue-50 text-blue-700'}`}>
+                  {uploadMessage.text}
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                disabled={isUploading}
+                className={`w-full md:w-auto px-8 py-3 rounded-lg font-bold text-white flex items-center justify-center transition-colors ${isUploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-brand-dark hover:bg-gray-800'}`}
+              >
+                {isUploading ? (
+                  <><div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div> Uploading...</>
+                ) : (
+                  <><Upload className="w-5 h-5 mr-2" /> Publish Note</>
+                )}
+              </button>
+            </form>
+          </motion.div>
+        )}
 
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
@@ -134,7 +389,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                 <h4 className="text-md text-gray-600 mb-4">{material.title}</h4>
                 
                 {material.notes && (
-                  <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg mb-4 line-clamp-3 italic">
+                  <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg mb-4 whitespace-pre-wrap italic">
                     "{material.notes}"
                   </div>
                 )}
