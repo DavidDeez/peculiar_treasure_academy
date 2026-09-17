@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X } from 'lucide-react';
+import { BookOpen, Search, Download, ArrowLeft, FileText, Lock, Plus, Upload, X, Trash2 } from 'lucide-react';
 import { sanityClient } from '../sanityClient';
 import { motion } from 'framer-motion';
 import Footer from './Footer';
@@ -165,6 +165,22 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
       }
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this study material?")) return;
+    
+    try {
+      const writeClient = sanityClient.withConfig({
+        token: import.meta.env.VITE_SANITY_WRITE_TOKEN,
+        useCdn: false
+      });
+      await writeClient.delete(id);
+      fetchMaterials();
+    } catch (error) {
+      console.error("Failed to delete:", error);
+      alert("Failed to delete. Make sure your write token is correct.");
     }
   };
 
@@ -389,7 +405,18 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
                   <span className="bg-brand-gold/10 text-brand-dark px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
                     {classes.find(c => c.value === material.classLevel)?.label || material.classLevel}
                   </span>
-                  <span className="text-gray-400 text-xs">{new Date(material.dateAdded).toLocaleDateString()}</span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="text-gray-400 text-xs">{new Date(material.dateAdded).toLocaleDateString()}</span>
+                    {isAdmin && (
+                      <button 
+                        onClick={() => handleDelete(material._id)} 
+                        className="text-red-500 hover:text-red-700 text-[10px] font-bold bg-red-50 hover:bg-red-100 px-2 py-1 rounded transition-colors flex items-center"
+                        title="Delete Material"
+                      >
+                        <Trash2 className="w-3 h-3 mr-1" /> Delete
+                      </button>
+                    )}
+                  </div>
                 </div>
                 
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{material.subject}</h3>
