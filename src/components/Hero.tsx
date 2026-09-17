@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-[#faf9f6] overflow-hidden min-h-screen flex items-center">
+    <section id="home" className="relative pt-44 pb-20 md:pt-48 md:pb-32 bg-[#faf9f6] overflow-hidden min-h-screen flex items-center">
       {/* Decorative background accent */}
       <motion.div 
         className="absolute top-0 right-0 w-1/2 h-full bg-brand-gold-light/30 rounded-bl-[100px] -z-10" 
