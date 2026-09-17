@@ -353,14 +353,14 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ onBack }) => {
             />
           </div>
           
-          <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="flex flex-wrap gap-2 justify-center">
             {classes.map(c => (
               <button
                 key={c.value}
                 onClick={() => setSelectedClass(c.value)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   selectedClass === c.value 
-                    ? 'bg-brand-dark text-white' 
+                    ? 'bg-brand-dark text-white shadow-md' 
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
